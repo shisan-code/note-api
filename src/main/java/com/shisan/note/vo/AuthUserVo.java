@@ -1,10 +1,15 @@
-package com.shisan.note.dto.auth;
+package com.shisan.note.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
-public class UserRegister {
+public class AuthUserVo {
+
+    @ApiModelProperty("主键ID")
+    private Long id;
 
     @ApiModelProperty("用户名称")
     private String name;
@@ -12,15 +17,16 @@ public class UserRegister {
     @ApiModelProperty("用户名")
     private String userName;
 
-    @ApiModelProperty("密码")
-    private String password;
-
     @ApiModelProperty("手机号码")
     private String phone;
 
-    @ApiModelProperty("手机号码")
+    @ApiModelProperty("邮箱")
     private String email;
+
+    @ApiModelProperty("用户状态 1=激活，2=禁用")
+    private Integer status;
 
     @ApiModelProperty("个性签名")
     private String signature;
+
 }

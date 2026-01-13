@@ -24,15 +24,12 @@ import javax.servlet.http.HttpServletRequest;
 public class MyAuthorizationManager implements AuthorizationManager<RequestAuthorizationContext> {
 
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
-
     @Resource
     private AuthProperties authProperties;
 
 
-
     @Override
     public AuthorizationDecision check(Supplier<Authentication> authentication, RequestAuthorizationContext requestAuthorizationContext) {
-        log.info(" 权限资源校验-----");
         HttpServletRequest request = requestAuthorizationContext.getRequest();
         //获取用户认证信息
         Object principal = authentication.get().getPrincipal();
@@ -61,7 +58,6 @@ public class MyAuthorizationManager implements AuthorizationManager<RequestAutho
                 break;
             }
         }
-
         return new AuthorizationDecision(hasPermission);
     }
 

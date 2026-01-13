@@ -1,10 +1,9 @@
 package com.shisan.note.config.security;
 
-import com.shisan.note.service.impl.UserLoginService;
+import com.shisan.note.service.impl.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -22,8 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final UserLoginService userLoginService;
-    private final JwtFilter jwtFilter;
+    private final CustomUserDetailsService customUserDetailsService;
+    private final JwtAuthenticationFilter jwtFilter;
     private final MyAuthorizationManager authorizationManager;
 
     @Bean
@@ -42,16 +41,11 @@ public class SecurityConfig {
                 // 前后端分离是无状态的，不需要session了，直接禁用。
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                                // 允许直接访问授权登录接口
-                                .antMatchers("/swagger-resources/**", "/webjars/**",
-                                        "/v2/**", "/swagger-ui.html/**").permitAll()
-                                .antMatchers("/api/local/file/img/*").permitAll()
-                        .antMatchers("/api/**").permitAll()
-                                .antMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                                .antMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
-                                // 允许 SpringMVC 的默认错误地址匿名访问
-                                .antMatchers("/error").permitAll()
-                                .anyRequest().access(authorizationManager)
+                        // 允许直接访问授权登录接口
+                        .antMatchers("/swagger-resources/**", "/webjars/**",
+                                "/v2/**", "/swagger-ui.html/**").permitAll()
+                        .antMatchers("/api/auth/**").permitAll()
+                        .anyRequest().access(authorizationManager)
                 )
 
                 .authenticationProvider(authenticationProvider())
@@ -67,7 +61,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userLoginService);
+        authenticationProvider.setUserDetailsService(customUserDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         authenticationProvider.setHideUserNotFoundExceptions(false);
         return authenticationProvider;
@@ -92,4 +86,5 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 }
