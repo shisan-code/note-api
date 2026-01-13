@@ -3,7 +3,7 @@ package com.shisan.note.controller.auth;
 import cn.shisan.common.domain.common.JResult;
 import com.shisan.note.controller.BaseController;
 import com.shisan.note.dto.auth.UserRegister;
-import com.shisan.note.service.UserService;
+import com.shisan.note.service.auth.AuthUserService;
 import com.shisan.note.dto.auth.LoginDto;
 import com.shisan.note.vo.LoginVo;
 import io.swagger.annotations.Api;
@@ -21,19 +21,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController extends BaseController {
 
-    private final UserService userService;
+    private final AuthUserService authUserService;
 
     @ApiOperation("登录")
     @PostMapping("/login")
     public JResult<LoginVo> authenticate(@RequestBody LoginDto loginDto) {
-        LoginVo login = userService.login(loginDto);
+        LoginVo login = authUserService.login(loginDto);
         return success(login);
     }
 
     @ApiOperation("注册用户")
     @PostMapping("/register")
     public JResult<String> authenticate(@RequestBody UserRegister register) {
-        userService.register(register);
+        authUserService.register(register);
         return success();
     }
 

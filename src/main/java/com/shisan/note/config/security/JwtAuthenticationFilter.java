@@ -1,7 +1,7 @@
 package com.shisan.note.config.security;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.shisan.note.service.impl.CustomUserDetailsService;
+import com.shisan.note.service.auth.CustomUserDetailsService;
 import com.shisan.note.utils.JwtTokenUtil;
 
 import lombok.RequiredArgsConstructor;

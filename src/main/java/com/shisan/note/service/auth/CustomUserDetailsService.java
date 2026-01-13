@@ -1,4 +1,4 @@
-package com.shisan.note.service.impl;
+package com.shisan.note.service.auth;
 
 import com.shisan.note.common.enums.UserEnums;
 import com.shisan.note.entity.LoginUser;

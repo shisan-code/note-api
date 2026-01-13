@@ -31,6 +31,14 @@ public class MyAuthorizationManager implements AuthorizationManager<RequestAutho
     @Override
     public AuthorizationDecision check(Supplier<Authentication> authentication, RequestAuthorizationContext requestAuthorizationContext) {
         HttpServletRequest request = requestAuthorizationContext.getRequest();
+
+        // 用户白名单
+        List<String> ignores = authProperties.getIgnores();
+        // 检查请求是否匹配忽略路径（白名单）
+        if (ignores.stream().anyMatch(url -> antPathMatcher.match(url, request.getRequestURI()))) {
+            return new AuthorizationDecision(true);
+        }
+
         //获取用户认证信息
         Object principal = authentication.get().getPrincipal();
         log.info("Authorities：{}", authentication.get().getAuthorities());
@@ -43,13 +51,11 @@ public class MyAuthorizationManager implements AuthorizationManager<RequestAutho
             }
             // 用户白名单
             List<String> urls = authProperties.getAuths();
-            for (String url : urls) {
-                if (antPathMatcher.match(url, request.getRequestURI())) {
-                    return new AuthorizationDecision(true);
-                }
+            // 检查请求用户白名单
+            if (urls.stream().anyMatch(url -> antPathMatcher.match(url, request.getRequestURI()))) {
+                return new AuthorizationDecision(true);
             }
         }
-
         Collection<? extends GrantedAuthority> authorities = authentication.get().getAuthorities();
         boolean hasPermission = false;
         for (GrantedAuthority authority : authorities) {

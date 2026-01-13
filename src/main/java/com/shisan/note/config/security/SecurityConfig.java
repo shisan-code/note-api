@@ -1,6 +1,6 @@
 package com.shisan.note.config.security;
 
-import com.shisan.note.service.impl.CustomUserDetailsService;
+import com.shisan.note.service.auth.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

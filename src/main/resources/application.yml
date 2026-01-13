@@ -13,7 +13,6 @@ spring:
 
 secure:
   auths:
-    - "/api/auth/userMenu"
-    - "/api/auth/permissionList"
   ignores:
+
 
