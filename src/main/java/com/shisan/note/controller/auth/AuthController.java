@@ -32,7 +32,7 @@ public class AuthController extends BaseController {
 
     @ApiOperation("注册用户")
     @PostMapping("/register")
-    public JResult<String> authenticate(@RequestBody UserRegister register) {
+    public JResult<String> register(@RequestBody UserRegister register) {
         authUserService.register(register);
         return success();
     }

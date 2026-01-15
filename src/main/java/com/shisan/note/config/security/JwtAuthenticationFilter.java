@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (StringUtils.isNotBlank(jwtToken)) {
             String userName = jwtTokenUtil.extractUsername(jwtToken);
             UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(userName);
-
+            // 验证token
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());

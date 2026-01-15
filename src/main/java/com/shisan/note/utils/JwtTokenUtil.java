@@ -27,28 +27,53 @@ public class JwtTokenUtil {
     @Value("${jwt.refresh-expiration}")
     private Long refreshExpiration;
 
-    // 生成签名密钥
+    /**
+     * 生成签名密钥
+     *
+     * @author lijing
+     * @Date 2026/1/15 10:29
+     */
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    // 从Token中获取用户名
+    /**
+     * 从Token中获取用户名
+     *
+     * @author lijing
+     * @Date 2026/1/15 10:29
+     */
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    // 从Token中获取过期时间
+    /**
+     * 从Token中获取过期时间
+     *
+     * @author lijing
+     * @Date 2026/1/15 10:29
+     */
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    // 提取Token中的声明
+    /**
+     * 提取Token中的声明
+     *
+     * @author lijing
+     * @Date 2026/1/15 10:29
+     */
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
-    // 提取所有声明
+    /**
+     * 提取所有声明
+     *
+     * @author lijing
+     * @Date 2026/1/15 10:30
+     */
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -57,24 +82,44 @@ public class JwtTokenUtil {
                 .getBody();
     }
 
-    // 验证Token是否过期
+    /**
+     * 验证Token是否过期
+     *
+     * @author lijing
+     * @Date 2026/1/15 10:29
+     */
     private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
-    // 生成访问Token
+    /**
+     * 生成访问Token
+     *
+     * @author lijing
+     * @Date 2026/1/15 10:29
+     */
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, userDetails.getUsername(), expiration);
     }
 
-    // 生成刷新Token
+    /**
+     * 生成刷新Token
+     *
+     * @author lijing
+     * @Date 2026/1/15 10:28
+     */
     public String generateRefreshToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, userDetails.getUsername(), refreshExpiration);
     }
 
-    // 创建Token
+    /**
+     * 创建Token
+     *
+     * @author lijing
+     * @Date 2026/1/15 10:28
+     */
     private String createToken(Map<String, Object> claims, String subject, Long expireTime) {
         return Jwts.builder()
                 .setClaims(claims)
@@ -85,7 +130,12 @@ public class JwtTokenUtil {
                 .compact();
     }
 
-    // 验证Token有效性
+    /**
+     * 验证Token有效性
+     *
+     * @author lijing
+     * @Date 2026/1/15 10:28
+     */
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));

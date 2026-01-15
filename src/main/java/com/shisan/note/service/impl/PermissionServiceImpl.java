@@ -1,7 +1,6 @@
 package com.shisan.note.service.impl;
 
 import cn.shisan.common.domain.common.PageQuery;
-import cn.shisan.common.domain.common.PageResult;
 import cn.shisan.common.domain.enums.IEnum;
 import cn.shisan.common.exception.BusinessException;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -151,7 +150,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
             LambdaQueryWrapper<Permission> lambdaQueryWrapper = Wrappers.<Permission>lambdaQuery()
                     .eq(Permission::getDeleted, 0)
                     .eq(Permission::getStatus, 1);
-            if(null != type){
+            if (null != type) {
                 lambdaQueryWrapper.eq(Permission::getType, type);
             }
             return permissionMapper.selectList(lambdaQueryWrapper);
@@ -168,25 +167,24 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     }
 
     @Override
-    public PageResult<Permission> pageList(PageQuery<PermissionQueryDto> query) {
+    public PageInfo<Permission> pageList(PageQuery<PermissionQueryDto> query) {
         PermissionQueryDto params = query.getParams();
         PageHelper.startPage(query.getPage(), query.getSize());
         // 查询参数
         QueryWrapper<Permission> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(Permission::getDeleted, 0);
-        if(StringUtils.isNotBlank(params.getName())){
+        if (StringUtils.isNotBlank(params.getName())) {
             queryWrapper.lambda().like(Permission::getName, params.getName());
         }
-        if(null != params.getType()){
+        if (null != params.getType()) {
             queryWrapper.lambda().eq(Permission::getType, params.getType());
         }
-        if(null != params.getStatus()){
+        if (null != params.getStatus()) {
             queryWrapper.lambda().eq(Permission::getStatus, params.getStatus());
         }
         queryWrapper.lambda().orderByDesc(Permission::getCreated);
         List<Permission> permissions = baseMapper.selectList(queryWrapper);
-        PageInfo<Permission> pageInfo = new PageInfo<>(permissions);
-        return new PageResult<>(pageInfo.getList(), pageInfo.getTotal());
+        return new PageInfo<>(permissions);
     }
 
     @Override

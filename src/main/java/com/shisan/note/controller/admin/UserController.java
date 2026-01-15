@@ -2,7 +2,7 @@ package com.shisan.note.controller.admin;
 
 import cn.shisan.common.domain.common.JResult;
 import cn.shisan.common.domain.common.PageQuery;
-import cn.shisan.common.domain.common.PageResult;
+import com.github.pagehelper.PageInfo;
 import com.shisan.note.controller.BaseController;
 import com.shisan.note.dto.admin.UserDto;
 import com.shisan.note.dto.admin.UserRoleDto;
@@ -32,8 +32,8 @@ public class UserController extends BaseController {
 
     @ApiOperation("用户分页")
     @PostMapping("/page")
-    public JResult<PageResult<UserDto>> page(@RequestBody PageQuery<UserQueryDto> query) {
-        PageResult<UserDto> page = userService.pageList(query);
+    public JResult<PageInfo<UserDto>> page(@RequestBody PageQuery<UserQueryDto> query) {
+        PageInfo<UserDto> page = userService.pageList(query);
         return success(page);
     }
 

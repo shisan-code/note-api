@@ -1,7 +1,6 @@
 package com.shisan.note.service.impl;
 
 import cn.shisan.common.domain.common.PageQuery;
-import cn.shisan.common.domain.common.PageResult;
 import cn.shisan.common.domain.enums.IEnum;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -66,11 +65,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public PageResult<UserDto> pageList(PageQuery<UserQueryDto> query) {
+    public PageInfo<UserDto> pageList(PageQuery<UserQueryDto> query) {
         PageHelper.startPage(query.getPage(), query.getSize());
         List<UserDto> sheepList = baseMapper.list(query);
-        PageInfo<UserDto> pageInfo = new PageInfo<>(sheepList);
-        return new PageResult<>(pageInfo.getList(), pageInfo.getTotal());
+        return new PageInfo<>(sheepList);
     }
 
     @Transactional(rollbackFor = Exception.class)

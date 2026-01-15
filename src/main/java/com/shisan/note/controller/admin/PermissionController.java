@@ -2,7 +2,7 @@ package com.shisan.note.controller.admin;
 
 import cn.shisan.common.domain.common.JResult;
 import cn.shisan.common.domain.common.PageQuery;
-import cn.shisan.common.domain.common.PageResult;
+import com.github.pagehelper.PageInfo;
 import com.shisan.note.controller.BaseController;
 import com.shisan.note.dto.admin.PermissionTree;
 import com.shisan.note.dto.query.PermissionQueryDto;
@@ -67,8 +67,8 @@ public class PermissionController extends BaseController {
 
     @ApiOperation("分页列表")
     @PostMapping("/page")
-    public JResult<PageResult<Permission>> pageList(@RequestBody PageQuery<PermissionQueryDto> query){
-        PageResult<Permission> permission = permissionService.pageList(query);
+    public JResult<PageInfo<Permission>> pageList(@RequestBody PageQuery<PermissionQueryDto> query){
+        PageInfo<Permission> permission = permissionService.pageList(query);
         return success(permission);
     }
 }

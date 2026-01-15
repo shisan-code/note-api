@@ -1,7 +1,6 @@
 package com.shisan.note.service.impl;
 
 import cn.shisan.common.domain.common.PageQuery;
-import cn.shisan.common.domain.common.PageResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -96,13 +95,12 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    public PageResult<Role> pageList(PageQuery<RoleQueryDto> query) {
+    public PageInfo<Role> pageList(PageQuery<RoleQueryDto> query) {
         RoleQueryDto params = query.getParams();
         PageHelper.startPage(query.getPage(), query.getSize());
         // 查询参数
         List<Role> roleList = list(params);
-        PageInfo<Role> pageInfo = new PageInfo<>(roleList);
-        return new PageResult<>(pageInfo.getList(), pageInfo.getTotal());
+        return new PageInfo<>(roleList);
     }
 
     @Override
@@ -110,10 +108,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         // 查询参数
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
         queryWrapper.lambda().eq(Role::getDeleted, 0);
-        if(null != query.getType()){
+        if (null != query.getType()) {
             queryWrapper.lambda().eq(Role::getType, query.getType());
         }
-        if(StringUtils.isNotBlank(query.getName())){
+        if (StringUtils.isNotBlank(query.getName())) {
             queryWrapper.lambda().like(Role::getName, query.getName());
         }
         queryWrapper.lambda().orderByDesc(Role::getCreated);

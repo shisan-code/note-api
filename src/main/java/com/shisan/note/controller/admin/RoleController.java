@@ -2,7 +2,7 @@ package com.shisan.note.controller.admin;
 
 import cn.shisan.common.domain.common.JResult;
 import cn.shisan.common.domain.common.PageQuery;
-import cn.shisan.common.domain.common.PageResult;
+import com.github.pagehelper.PageInfo;
 import com.shisan.note.controller.BaseController;
 import com.shisan.note.dto.admin.RoleDto;
 import com.shisan.note.dto.admin.RolePermissionDto;
@@ -73,9 +73,9 @@ public class RoleController extends BaseController {
 
     @ApiOperation("角色分页")
     @PostMapping("/page")
-    public JResult<PageResult<Role>> pageList(@RequestBody PageQuery<RoleQueryDto> query){
+    public JResult<PageInfo<Role>> pageList(@RequestBody PageQuery<RoleQueryDto> query){
         query.setParams(Optional.ofNullable(query.getParams()).orElse(new RoleQueryDto()));
-        PageResult<Role> role = roleService.pageList(query);
+        PageInfo<Role> role = roleService.pageList(query);
         return success(role);
     }
 

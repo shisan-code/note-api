@@ -32,14 +32,14 @@ public class MyAuthorizationManager implements AuthorizationManager<RequestAutho
     public AuthorizationDecision check(Supplier<Authentication> authentication, RequestAuthorizationContext requestAuthorizationContext) {
         HttpServletRequest request = requestAuthorizationContext.getRequest();
 
-        // 用户白名单
+        // 白名单
         List<String> ignores = authProperties.getIgnores();
         // 检查请求是否匹配忽略路径（白名单）
         if (ignores.stream().anyMatch(url -> antPathMatcher.match(url, request.getRequestURI()))) {
             return new AuthorizationDecision(true);
         }
 
-        //获取用户认证信息
+        // 获取用户认证信息
         Object principal = authentication.get().getPrincipal();
         log.info("Authorities：{}", authentication.get().getAuthorities());
         //判断数据是否为空 以及类型是否正确

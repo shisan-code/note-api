@@ -1,8 +1,8 @@
 package com.shisan.note.service;
 
 import cn.shisan.common.domain.common.PageQuery;
-import cn.shisan.common.domain.common.PageResult;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 import com.shisan.note.dto.admin.UserDto;
 import com.shisan.note.dto.admin.UserRoleDto;
 import com.shisan.note.dto.admin.UserStatusDto;
@@ -26,7 +26,7 @@ public interface UserService extends IService<User> {
     /**
      * 分页
      */
-    PageResult<UserDto> pageList(PageQuery<UserQueryDto> query);
+    PageInfo<UserDto> pageList(PageQuery<UserQueryDto> query);
 
     /**
      * 修改用户状态
