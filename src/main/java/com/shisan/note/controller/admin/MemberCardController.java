@@ -10,7 +10,7 @@ import com.shisan.note.dto.member.MemberCardTransactionDto;
 import com.shisan.note.dto.member.MemberCardUpdateDto;
 import com.shisan.note.dto.query.MemberCardQueryDto;
 import com.shisan.note.entity.member.MemberCard;
-import com.shisan.note.service.MemberCardService;
+import com.shisan.note.service.note.MemberCardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

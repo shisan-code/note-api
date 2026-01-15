@@ -1,11 +1,12 @@
 package com.shisan.note.service.auth;
 
+import com.shisan.note.common.enums.StatusEnums;
 import com.shisan.note.common.enums.UserEnums;
 import com.shisan.note.entity.LoginUser;
 import com.shisan.note.entity.Permission;
 import com.shisan.note.entity.User;
-import com.shisan.note.service.PermissionService;
-import com.shisan.note.service.UserService;
+import com.shisan.note.service.admin.PermissionService;
+import com.shisan.note.service.admin.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.DisabledException;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -47,7 +49,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         loginUser.setAdmin(admin);
         loginUser.setPermissions(roles);
-        loginUser.setEnabled(user.getStatus() != 2);
+        // 是否启用
+        loginUser.setEnabled(!Objects.equals(user.getStatus(), StatusEnums.DISABLE.getCode()));
 
         if (!loginUser.isEnabled()) {
             throw new DisabledException("该账户已被禁用!");

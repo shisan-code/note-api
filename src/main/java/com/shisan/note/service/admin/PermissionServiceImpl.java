@@ -1,4 +1,4 @@
-package com.shisan.note.service.impl;
+package com.shisan.note.service.admin;
 
 import cn.shisan.common.domain.common.PageQuery;
 import cn.shisan.common.domain.enums.IEnum;
@@ -11,17 +11,16 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.shisan.note.common.enums.StatusEnums;
 import com.shisan.note.common.enums.UserEnums;
+import com.shisan.note.convert.PermissionTreeConvert;
 import com.shisan.note.dto.admin.PermissionTree;
 import com.shisan.note.dto.query.PermissionQueryDto;
 import com.shisan.note.entity.Permission;
 import com.shisan.note.entity.Role;
 import com.shisan.note.mapper.admin.PermissionMapper;
 import com.shisan.note.mapper.admin.RoleMapper;
-import com.shisan.note.service.PermissionService;
 import com.shisan.note.utils.AssertUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -33,7 +32,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Transactional(rollbackFor = Exception.class)
+
 @Service
 @RequiredArgsConstructor
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permission> implements PermissionService {
@@ -50,46 +49,14 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         if (CollectionUtils.isEmpty(list)) {
             return Collections.emptyList();
         }
-        ArrayList<PermissionTree> trees = new ArrayList<>();
-        for (Permission permission : list) {
-            if (null != permission.getParentId() && permission.getParentId() == 0) {
-                PermissionTree permissionTree = new PermissionTree();
-                BeanUtils.copyProperties(permission, permissionTree);
-                permissionTree.setChildren(getChildren(permissionTree, list));
-                trees.add(permissionTree);
-            }
-        }
-        return trees;
+        return getPermissionTrees(list);
     }
 
     @Override
     public List<PermissionTree> userMenu(Long userId) {
         List<Permission> permissions = findByUserId(userId, UserEnums.PermissionType.MENU.getCode());
-        ArrayList<PermissionTree> trees = new ArrayList<>();
-        for (Permission permission : permissions) {
-            if (null != permission.getParentId() && permission.getParentId() == 0) {
-                PermissionTree permissionTree = new PermissionTree();
-                BeanUtils.copyProperties(permission, permissionTree);
-                permissionTree.setChildren(getChildren(permissionTree, permissions));
-                trees.add(permissionTree);
-            }
-        }
-        return trees;
+        return getPermissionTrees(permissions);
     }
-
-    private List<PermissionTree> getChildren(PermissionTree root, List<Permission> list) {
-        ArrayList<PermissionTree> trees = new ArrayList<>();
-        for (Permission permission : list) {
-            if (root.getId().equals(permission.getParentId())) {
-                PermissionTree tree = new PermissionTree();
-                BeanUtils.copyProperties(permission, tree);
-                tree.setChildren(getChildren(tree, list));
-                trees.add(tree);
-            }
-        }
-        return trees;
-    }
-
 
     @Override
     public Permission findById(Long id) {
@@ -113,6 +80,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int insert(Permission permission) {
         permission.setParentId(Optional.ofNullable(permission.getParentId()).orElse(0L));
@@ -121,6 +89,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         return permissionMapper.insert(permission);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int update(Permission permission) {
         Permission p = findById(permission.getId());
@@ -130,6 +99,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         return permissionMapper.updateById(permission);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int delete(Long id) {
         Permission p = new Permission();
@@ -196,4 +166,34 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         return roles.stream().anyMatch(role -> role.getType().equals(0));
     }
 
+
+    /**
+     * 转换获取树
+     *
+     * @author lijing
+     * @Date 2026/1/15 10:56
+     */
+    private List<PermissionTree> getPermissionTrees(List<Permission> list) {
+        ArrayList<PermissionTree> trees = new ArrayList<>();
+        for (Permission permission : list) {
+            if (null != permission.getParentId() && permission.getParentId() == 0) {
+                PermissionTree permissionTree = PermissionTreeConvert.convertTree(permission);
+                permissionTree.setChildren(getChildren(permissionTree, list));
+                trees.add(permissionTree);
+            }
+        }
+        return trees;
+    }
+
+    private List<PermissionTree> getChildren(PermissionTree root, List<Permission> list) {
+        ArrayList<PermissionTree> trees = new ArrayList<>();
+        for (Permission permission : list) {
+            if (root.getId().equals(permission.getParentId())) {
+                PermissionTree tree = PermissionTreeConvert.convertTree(permission);
+                tree.setChildren(getChildren(tree, list));
+                trees.add(tree);
+            }
+        }
+        return trees;
+    }
 }

@@ -1,7 +1,6 @@
-package com.shisan.note.service.impl;
+package com.shisan.note.service.admin;
 
 import cn.shisan.common.exception.BusinessException;
-import com.shisan.note.service.FileUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

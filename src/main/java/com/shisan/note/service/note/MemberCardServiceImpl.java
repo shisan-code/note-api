@@ -1,4 +1,4 @@
-package com.shisan.note.service.impl;
+package com.shisan.note.service.note;
 
 import cn.shisan.common.domain.common.PageQuery;
 import cn.shisan.common.exception.BusinessException;
@@ -16,7 +16,7 @@ import com.shisan.note.entity.member.MemberCard;
 import com.shisan.note.entity.member.MemberTransactionRecord;
 import com.shisan.note.mapper.member.MemberCardMapper;
 import com.shisan.note.mapper.member.MemberTransactionRecordMapper;
-import com.shisan.note.service.MemberCardService;
+import com.shisan.note.service.note.MemberCardService;
 import com.shisan.note.utils.AssertUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;

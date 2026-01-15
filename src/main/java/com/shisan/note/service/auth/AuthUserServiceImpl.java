@@ -6,7 +6,7 @@ import com.shisan.note.dto.auth.LoginDto;
 import com.shisan.note.dto.auth.UserRegister;
 import com.shisan.note.entity.LoginUser;
 import com.shisan.note.entity.User;
-import com.shisan.note.service.UserService;
+import com.shisan.note.service.admin.UserService;
 import com.shisan.note.utils.AssertUtils;
 import com.shisan.note.utils.JwtTokenUtil;
 import com.shisan.note.vo.AuthUserVo;

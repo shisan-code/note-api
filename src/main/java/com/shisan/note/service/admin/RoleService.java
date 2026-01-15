@@ -1,4 +1,4 @@
-package com.shisan.note.service;
+package com.shisan.note.service.admin;
 
 import cn.shisan.common.domain.common.PageQuery;
 import com.baomidou.mybatisplus.extension.service.IService;

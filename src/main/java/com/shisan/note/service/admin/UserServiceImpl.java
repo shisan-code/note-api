@@ -1,4 +1,4 @@
-package com.shisan.note.service.impl;
+package com.shisan.note.service.admin;
 
 import cn.shisan.common.domain.common.PageQuery;
 import cn.shisan.common.domain.enums.IEnum;
@@ -14,8 +14,6 @@ import com.shisan.note.dto.query.UserQueryDto;
 import com.shisan.note.entity.User;
 import com.shisan.note.entity.UserRole;
 import com.shisan.note.mapper.admin.UserMapper;
-import com.shisan.note.service.UserRoleService;
-import com.shisan.note.service.UserService;
 import com.shisan.note.utils.AssertUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -55,6 +53,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (!CollectionUtils.isEmpty(roles)) {
             userRoleService.saveBatch(roles);
         }
+
     }
 
     @Override

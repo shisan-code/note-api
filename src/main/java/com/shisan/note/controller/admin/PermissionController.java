@@ -7,7 +7,7 @@ import com.shisan.note.controller.BaseController;
 import com.shisan.note.dto.admin.PermissionTree;
 import com.shisan.note.dto.query.PermissionQueryDto;
 import com.shisan.note.entity.Permission;
-import com.shisan.note.service.PermissionService;
+import com.shisan.note.service.admin.PermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

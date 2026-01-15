@@ -1,4 +1,4 @@
-package com.shisan.note.service.impl;
+package com.shisan.note.service.admin;
 
 import cn.shisan.common.domain.common.PageQuery;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -6,18 +6,16 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.shisan.note.convert.RoleConvert;
 import com.shisan.note.dto.admin.RoleDto;
 import com.shisan.note.dto.admin.RolePermissionDto;
 import com.shisan.note.dto.query.RoleQueryDto;
 import com.shisan.note.entity.Role;
 import com.shisan.note.entity.RolePermission;
 import com.shisan.note.mapper.admin.RoleMapper;
-import com.shisan.note.service.RolePermissionService;
-import com.shisan.note.service.RoleService;
 import com.shisan.note.utils.AssertUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -26,7 +24,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Transactional(rollbackFor = Exception.class)
+
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
@@ -41,12 +39,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
                 .eq(Role::getId, id));
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int insert(RoleDto roleDto) {
-        Role role = new Role();
-        BeanUtils.copyProperties(roleDto, role);
-        role.setCreated(LocalDateTime.now());
-        role.setModified(LocalDateTime.now());
+        Role role = RoleConvert.convert(roleDto);
         return roleMapper.insert(role);
     }
 
@@ -55,12 +51,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         Role role = findById(roleDto.getId());
         AssertUtils.isNull(role, "角色不存在");
 
-        Role r = new Role();
-        BeanUtils.copyProperties(roleDto, r);
-        r.setModified(LocalDateTime.now());
+        Role r = RoleConvert.convert(roleDto);
         return roleMapper.updateById(r);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int delete(Long id) {
         Role role = new Role();
@@ -70,6 +65,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         return roleMapper.updateById(role);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void setPermission(RolePermissionDto rolePermissionDto) {
         Role role = findById(rolePermissionDto.getRoleId());

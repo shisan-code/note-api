@@ -1,6 +1,5 @@
 package com.shisan.note.service.note;
 
-import cn.shisan.common.exception.BusinessException;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shisan.note.common.enums.DelEnum;
