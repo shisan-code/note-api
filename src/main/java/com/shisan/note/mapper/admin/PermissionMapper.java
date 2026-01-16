@@ -3,7 +3,7 @@ package com.shisan.note.mapper.admin;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.shisan.note.entity.Permission;
+import com.shisan.note.entity.admin.Permission;
 import org.apache.ibatis.annotations.Param;
 
 public interface PermissionMapper extends BaseMapper<Permission> {

@@ -1,4 +1,4 @@
-package com.shisan.note.entity;
+package com.shisan.note.entity.admin;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

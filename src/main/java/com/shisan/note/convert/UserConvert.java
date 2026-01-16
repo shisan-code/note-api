@@ -2,7 +2,7 @@ package com.shisan.note.convert;
 
 import com.shisan.note.common.enums.StatusEnums;
 import com.shisan.note.dto.auth.UserRegister;
-import com.shisan.note.entity.User;
+import com.shisan.note.entity.admin.User;
 
 import java.time.LocalDateTime;
 

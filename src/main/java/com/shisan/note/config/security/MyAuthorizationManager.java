@@ -1,7 +1,7 @@
 package com.shisan.note.config.security;
 
 import com.shisan.note.config.AuthProperties;
-import com.shisan.note.entity.LoginUser;
+import com.shisan.note.dto.auth.LoginUser;
 
 import java.util.Collection;
 import java.util.List;

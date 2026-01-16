@@ -1,4 +1,4 @@
-package com.shisan.note.entity;
+package com.shisan.note.entity.admin;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,21 +9,21 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * 角色权限关联表
+ * 用户角色关联表
  */
 @Data
-@TableName("tbl_role_permission")
-public class RolePermission {
+@TableName("tbl_user_role")
+public class UserRole {
 
 	@TableId(value = "id", type = IdType.AUTO)
-	@ApiModelProperty("关联ID")
+	@ApiModelProperty("ID")
 	private Long id;
+	
+	@ApiModelProperty("用户ID")
+	private Long userId;
 	
 	@ApiModelProperty("角色ID")
 	private Long roleId;
-	
-	@ApiModelProperty("权限ID")
-	private Long permissionId;
 	
 	@ApiModelProperty("创建时间")
 	private LocalDateTime created;

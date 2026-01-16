@@ -6,7 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.shisan.note.dto.admin.RoleDto;
 import com.shisan.note.dto.admin.RolePermissionDto;
 import com.shisan.note.dto.query.RoleQueryDto;
-import com.shisan.note.entity.Role;
+import com.shisan.note.entity.admin.Role;
 
 import java.util.List;
 
@@ -24,22 +24,22 @@ public interface RoleService extends IService<Role> {
      * 新增，插入所有字段
      *
      * @param roleDto 新增的记录
-     * @return 返回影响行数
+     *
      */
-    int insert(RoleDto roleDto);
+    void insert(RoleDto roleDto);
 
     /**
      * 修改，忽略null字段
      *
      * @param roleDto 修改的记录
-     * @return 返回影响行数
+     *
      */
-    int update(RoleDto roleDto);
+    void update(RoleDto roleDto);
 
     /**
      * 删除记录
      */
-    int delete(Long id);
+    void delete(Long id);
 
     /**
      * 设置角色权限

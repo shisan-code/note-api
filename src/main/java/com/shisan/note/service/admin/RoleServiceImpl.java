@@ -10,8 +10,8 @@ import com.shisan.note.convert.RoleConvert;
 import com.shisan.note.dto.admin.RoleDto;
 import com.shisan.note.dto.admin.RolePermissionDto;
 import com.shisan.note.dto.query.RoleQueryDto;
-import com.shisan.note.entity.Role;
-import com.shisan.note.entity.RolePermission;
+import com.shisan.note.entity.admin.Role;
+import com.shisan.note.entity.admin.RolePermission;
 import com.shisan.note.mapper.admin.RoleMapper;
 import com.shisan.note.utils.AssertUtils;
 import lombok.RequiredArgsConstructor;
@@ -41,28 +41,31 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int insert(RoleDto roleDto) {
+    public void insert(RoleDto roleDto) {
         Role role = RoleConvert.convert(roleDto);
-        return roleMapper.insert(role);
+        int insert = roleMapper.insert(role);
+        AssertUtils.isTrue(insert <= 0, "角色添加失败，请重试!");
     }
 
     @Override
-    public int update(RoleDto roleDto) {
+    public void update(RoleDto roleDto) {
         Role role = findById(roleDto.getId());
         AssertUtils.isNull(role, "角色不存在");
 
         Role r = RoleConvert.convert(roleDto);
-        return roleMapper.updateById(r);
+        int update = roleMapper.updateById(r);
+        AssertUtils.isTrue(update <= 0, "角色修改失败，请重试!");
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int delete(Long id) {
+    public void delete(Long id) {
         Role role = new Role();
         role.setId(id);
         role.setDeleted(1);
         role.setModified(LocalDateTime.now());
-        return roleMapper.updateById(role);
+        int delete = roleMapper.updateById(role);
+        AssertUtils.isTrue(delete <= 0, "角色删除失败，请重试!");
     }
 
     @Transactional(rollbackFor = Exception.class)

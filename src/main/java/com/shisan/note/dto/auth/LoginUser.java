@@ -1,4 +1,4 @@
-package com.shisan.note.entity;
+package com.shisan.note.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

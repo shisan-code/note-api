@@ -11,8 +11,8 @@ import com.shisan.note.dto.admin.UserDto;
 import com.shisan.note.dto.admin.UserRoleDto;
 import com.shisan.note.dto.admin.UserStatusDto;
 import com.shisan.note.dto.query.UserQueryDto;
-import com.shisan.note.entity.User;
-import com.shisan.note.entity.UserRole;
+import com.shisan.note.entity.admin.User;
+import com.shisan.note.entity.admin.UserRole;
 import com.shisan.note.mapper.admin.UserMapper;
 import com.shisan.note.utils.AssertUtils;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +51,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }).collect(Collectors.toList());
         userRoleService.deleteByUserId(userRoleDto.getUserId());
         if (!CollectionUtils.isEmpty(roles)) {
-            userRoleService.saveBatch(roles);
+            boolean b = userRoleService.saveBatch(roles);
+            AssertUtils.isTrue(!b, "用户角色变更失败，请重试!");
         }
 
     }
@@ -85,7 +86,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         u.setId(user.getId());
         u.setStatus(statusDto.getStatus());
         u.setModified(LocalDateTime.now());
-        userMapper.updateById(u);
+        int update = userMapper.updateById(u);
+        AssertUtils.isTrue(update <= 0, "用户状态变更失败，请重试!");
     }
 
 }

@@ -7,7 +7,7 @@ import com.shisan.note.dto.admin.UserDto;
 import com.shisan.note.dto.admin.UserRoleDto;
 import com.shisan.note.dto.admin.UserStatusDto;
 import com.shisan.note.dto.query.UserQueryDto;
-import com.shisan.note.entity.User;
+import com.shisan.note.entity.admin.User;
 
 public interface UserService extends IService<User> {
 

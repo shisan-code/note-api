@@ -2,9 +2,9 @@ package com.shisan.note.service.auth;
 
 import com.shisan.note.common.enums.StatusEnums;
 import com.shisan.note.common.enums.UserEnums;
-import com.shisan.note.entity.LoginUser;
-import com.shisan.note.entity.Permission;
-import com.shisan.note.entity.User;
+import com.shisan.note.dto.auth.LoginUser;
+import com.shisan.note.entity.admin.Permission;
+import com.shisan.note.entity.admin.User;
 import com.shisan.note.service.admin.PermissionService;
 import com.shisan.note.service.admin.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +30,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //如果User为null，就会抛出异常信息：UsernameNotFoundException
-        LoginUser loginUser = null;
         User user = userService.findByUserName(username);
         if (null == user) {
             throw new UsernameNotFoundException("用户不存在!");
         }
-        loginUser = new LoginUser();
+        LoginUser loginUser = new LoginUser();
         loginUser.setUserId(user.getId());
         loginUser.setUserName(user.getUserName());
         loginUser.setPassword(user.getPassword());

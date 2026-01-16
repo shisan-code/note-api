@@ -34,6 +34,10 @@ public class AssertUtils {
         }
     }
 
+    public static void isFalse(boolean expression, String msg) {
+        isTrue(!expression, msg);
+    }
+
     /**
      * String 为空抛出异常
      *

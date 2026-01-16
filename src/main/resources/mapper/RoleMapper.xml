@@ -3,7 +3,7 @@
 <mapper namespace="com.shisan.note.mapper.admin.RoleMapper">
 
 
-    <select id="findByUserId" resultType="com.shisan.note.entity.Role">
+    <select id="findByUserId" resultType="com.shisan.note.entity.admin.Role">
         select t.* FROM tbl_role t
         join tbl_user_role t1 on t.id = t1.role_id and t1.deleted = 0
         where t.deleted = 0 and t1.deleted = 0 and t1.user_id = #{userId}

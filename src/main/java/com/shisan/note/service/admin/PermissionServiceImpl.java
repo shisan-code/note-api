@@ -14,8 +14,8 @@ import com.shisan.note.common.enums.UserEnums;
 import com.shisan.note.convert.PermissionTreeConvert;
 import com.shisan.note.dto.admin.PermissionTree;
 import com.shisan.note.dto.query.PermissionQueryDto;
-import com.shisan.note.entity.Permission;
-import com.shisan.note.entity.Role;
+import com.shisan.note.entity.admin.Permission;
+import com.shisan.note.entity.admin.Role;
 import com.shisan.note.mapper.admin.PermissionMapper;
 import com.shisan.note.mapper.admin.RoleMapper;
 import com.shisan.note.utils.AssertUtils;
@@ -82,31 +82,34 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int insert(Permission permission) {
+    public void insert(Permission permission) {
         permission.setParentId(Optional.ofNullable(permission.getParentId()).orElse(0L));
         check(permission);
         permission.setCreated(LocalDateTime.now());
-        return permissionMapper.insert(permission);
+        int insert = permissionMapper.insert(permission);
+        AssertUtils.isTrue(insert <= 0, "权限资源添加失败，请重试!");
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int update(Permission permission) {
+    public void update(Permission permission) {
         Permission p = findById(permission.getId());
         AssertUtils.isNull(p, "权限资源不存在");
         check(permission);
         permission.setModified(LocalDateTime.now());
-        return permissionMapper.updateById(permission);
+        int update = permissionMapper.updateById(permission);
+        AssertUtils.isTrue(update <= 0, "权限资源修改失败，请重试!");
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public int delete(Long id) {
+    public void delete(Long id) {
         Permission p = new Permission();
         p.setId(id);
         p.setDeleted(1);
         p.setModified(LocalDateTime.now());
-        return permissionMapper.updateById(p);
+        int deleted = permissionMapper.updateById(p);
+        AssertUtils.isTrue(deleted <= 0, "权限资源删除失败，请重试!");
     }
 
     @Override

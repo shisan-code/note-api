@@ -2,7 +2,7 @@
 <!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.shisan.note.mapper.admin.PermissionMapper">
 
-    <select id="findInRoleIds" resultType="com.shisan.note.entity.Permission">
+    <select id="findInRoleIds" resultType="com.shisan.note.entity.admin.Permission">
         select * from tbl_permission p
         join tbl_role_permission pr on pr.permission_id = p.id
         where p.deleted = 0 and p.status = 1 and pr.deleted = 0 and pr.role_id in

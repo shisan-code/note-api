@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
 import com.shisan.note.dto.admin.PermissionTree;
 import com.shisan.note.dto.query.PermissionQueryDto;
-import com.shisan.note.entity.Permission;
+import com.shisan.note.entity.admin.Permission;
 
 import java.util.List;
 
@@ -33,22 +33,20 @@ public interface PermissionService extends IService<Permission> {
      * 新增，插入所有字段
      *
      * @param permission 新增的记录
-     * @return 返回影响行数
      */
-    int insert(Permission permission);
+    void insert(Permission permission);
 
     /**
      * 修改，忽略null字段
      *
      * @param permission 修改的记录
-     * @return 返回影响行数
      */
-    int update(Permission permission);
+    void update(Permission permission);
 
     /**
      * 删除记录
      */
-    int delete(Long id);
+    void delete(Long id);
 
     /**
      * 获取用户角色权限（启用的）

@@ -4,8 +4,8 @@ import com.shisan.note.convert.AuthConvert;
 import com.shisan.note.convert.UserConvert;
 import com.shisan.note.dto.auth.LoginDto;
 import com.shisan.note.dto.auth.UserRegister;
-import com.shisan.note.entity.LoginUser;
-import com.shisan.note.entity.User;
+import com.shisan.note.dto.auth.LoginUser;
+import com.shisan.note.entity.admin.User;
 import com.shisan.note.service.admin.UserService;
 import com.shisan.note.utils.AssertUtils;
 import com.shisan.note.utils.JwtTokenUtil;
@@ -63,7 +63,8 @@ public class AuthUserServiceImpl implements AuthUserService {
         // 构建用户信息
         User user = UserConvert.convert(register);
         user.setPassword(passwordEncoder.encode(register.getPassword()));
-        userService.save(user);
+        boolean save = userService.save(user);
+        AssertUtils.isTrue(save, "注册失败");
     }
 
 }
