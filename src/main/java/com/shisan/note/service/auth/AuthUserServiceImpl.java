@@ -47,6 +47,7 @@ public class AuthUserServiceImpl implements AuthUserService {
         // 封装返回数据
         return LoginVo.builder()
                 .accessToken(jwtToken)
+                .expiration(jwtTokenUtil.getExpiration())
                 .authUser(authUserVo)
                 .build();
     }

@@ -14,7 +14,8 @@ public class LoginVo {
 
     @ApiModelProperty("token")
     private String accessToken;
-
+    @ApiModelProperty("过期时间")
+    private Long expiration;
     @ApiModelProperty("登录用户信息")
     private AuthUserVo authUser;
 }
