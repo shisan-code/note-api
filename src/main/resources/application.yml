@@ -13,6 +13,6 @@ spring:
 
 secure:
   auths:
-  ignores:
+  ignores: /note/api/auth/login
 
 

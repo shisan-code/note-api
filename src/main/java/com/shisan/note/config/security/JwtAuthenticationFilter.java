@@ -34,11 +34,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         //从请求头中获取token
         String jwtToken = request.getHeader("Authorization");
         CustomHttpServletRequest servletRequest = new CustomHttpServletRequest(request);
-
+        String userName = null;
         if (StringUtils.isNotBlank(jwtToken)) {
-            String userName = jwtTokenUtil.extractUsername(jwtToken);
+            try {
+                userName = jwtTokenUtil.extractUsername(jwtToken);
+            } catch (Exception e) {
+                log.error("token解析异常: {}", e.getMessage());
+            }
+        }
+
+        // 验证token
+        if (StringUtils.isNotBlank(userName)) {
             UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(userName);
-            // 验证token
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
@@ -52,6 +59,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 servletRequest.addHeader("user", JSONObject.toJSONString(map));
             }
         }
+
         //继续过滤
         filterChain.doFilter(servletRequest, response);
     }
