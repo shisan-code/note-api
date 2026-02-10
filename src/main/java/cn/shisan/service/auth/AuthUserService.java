@@ -1,7 +1,7 @@
-package com.shisan.note.service.auth;
-import com.shisan.note.dto.auth.LoginDto;
-import com.shisan.note.dto.auth.UserRegister;
-import com.shisan.note.vo.LoginVo;
+package cn.shisan.service.auth;
+import cn.shisan.dto.auth.LoginDto;
+import cn.shisan.dto.auth.UserRegister;
+import cn.shisan.vo.LoginVo;
 
 public interface AuthUserService {
 

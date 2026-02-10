@@ -1,4 +1,4 @@
-package com.shisan.note.service.sys;
+package cn.shisan.service.sys;
 
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,7 +1,7 @@
-package com.shisan.note.convert;
+package cn.shisan.convert;
 
-import com.shisan.note.domain.entity.sys.User;
-import com.shisan.note.vo.AuthUserVo;
+import cn.shisan.domain.entity.sys.User;
+import cn.shisan.vo.AuthUserVo;
 
 public class AuthConvert {
 

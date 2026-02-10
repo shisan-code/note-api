@@ -1,7 +1,7 @@
-package com.shisan.note.mapper.note;
+package cn.shisan.mapper.note;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.shisan.note.domain.entity.note.Notebook;
+import cn.shisan.domain.entity.note.Notebook;
 
 public interface NotebookMapper extends BaseMapper<Notebook> {
 

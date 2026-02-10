@@ -1,8 +1,8 @@
-package com.shisan.note.mapper.sys;
+package cn.shisan.mapper.sys;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.shisan.note.domain.entity.sys.RolePermission;
+import cn.shisan.domain.entity.sys.RolePermission;
 
 public interface RolePermissionMapper extends BaseMapper<RolePermission> {
 	

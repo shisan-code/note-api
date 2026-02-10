@@ -1,11 +1,11 @@
-package com.shisan.note.service.sys;
+package cn.shisan.service.sys;
 
 import cn.shisan.common.domain.common.PageQuery;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.shisan.note.dto.sys.PermissionTree;
-import com.shisan.note.dto.query.PermissionQueryDto;
-import com.shisan.note.domain.entity.sys.Permission;
+import cn.shisan.dto.sys.PermissionTree;
+import cn.shisan.dto.query.PermissionQueryDto;
+import cn.shisan.domain.entity.sys.Permission;
 
 import java.util.List;
 

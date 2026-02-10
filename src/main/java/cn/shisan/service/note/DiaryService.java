@@ -1,8 +1,8 @@
-package com.shisan.note.service.note;
+package cn.shisan.service.note;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.shisan.note.dto.note.DiaryDto;
-import com.shisan.note.domain.entity.note.Diary;
+import cn.shisan.dto.note.DiaryDto;
+import cn.shisan.domain.entity.note.Diary;
 
 /**
  * <p>

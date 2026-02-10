@@ -1,4 +1,4 @@
-package com.shisan.note;
+package cn.shisan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,8 +1,8 @@
-package com.shisan.note.service.sys;
+package cn.shisan.service.sys;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.shisan.note.domain.entity.sys.UserRole;
+import cn.shisan.domain.entity.sys.UserRole;
 
 public interface UserRoleService extends IService<UserRole> {
 

@@ -1,11 +1,11 @@
-package com.shisan.note.controller.auth;
+package cn.shisan.controller.auth;
 
 import cn.shisan.common.domain.common.JResult;
-import com.shisan.note.controller.BaseController;
-import com.shisan.note.dto.auth.UserRegister;
-import com.shisan.note.service.auth.AuthUserService;
-import com.shisan.note.dto.auth.LoginDto;
-import com.shisan.note.vo.LoginVo;
+import cn.shisan.controller.BaseController;
+import cn.shisan.dto.auth.UserRegister;
+import cn.shisan.service.auth.AuthUserService;
+import cn.shisan.dto.auth.LoginDto;
+import cn.shisan.vo.LoginVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

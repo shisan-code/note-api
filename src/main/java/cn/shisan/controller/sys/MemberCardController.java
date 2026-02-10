@@ -1,16 +1,16 @@
-package com.shisan.note.controller.sys;
+package cn.shisan.controller.sys;
 
 import cn.shisan.common.domain.common.JResult;
 import cn.shisan.common.domain.common.PageQuery;
 import com.github.pagehelper.PageInfo;
-import com.shisan.note.controller.BaseController;
-import com.shisan.note.dto.member.MemberCardRegisterDto;
-import com.shisan.note.dto.member.MemberCardStatusDto;
-import com.shisan.note.dto.member.MemberCardTransactionDto;
-import com.shisan.note.dto.member.MemberCardUpdateDto;
-import com.shisan.note.dto.query.MemberCardQueryDto;
-import com.shisan.note.domain.entity.member.MemberCard;
-import com.shisan.note.service.note.MemberCardService;
+import cn.shisan.controller.BaseController;
+import cn.shisan.dto.member.MemberCardRegisterDto;
+import cn.shisan.dto.member.MemberCardStatusDto;
+import cn.shisan.dto.member.MemberCardTransactionDto;
+import cn.shisan.dto.member.MemberCardUpdateDto;
+import cn.shisan.dto.query.MemberCardQueryDto;
+import cn.shisan.domain.entity.member.MemberCard;
+import cn.shisan.service.note.MemberCardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
-package com.shisan.note.service.sys;
+package cn.shisan.service.sys;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.shisan.note.domain.entity.sys.RolePermission;
+import cn.shisan.domain.entity.sys.RolePermission;
 import java.util.List;
 
 public interface RolePermissionService extends IService<RolePermission> {

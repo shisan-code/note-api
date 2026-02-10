@@ -1,4 +1,4 @@
-package com.shisan.note.utils;
+package cn.shisan.utils;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

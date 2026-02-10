@@ -1,4 +1,4 @@
-package com.shisan.note.vo;
+package cn.shisan.vo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;

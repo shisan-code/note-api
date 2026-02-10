@@ -1,4 +1,4 @@
-package com.shisan.note.controller;
+package cn.shisan.controller;
 
 import cn.shisan.common.domain.common.JResult;
 import com.alibaba.fastjson2.JSONObject;

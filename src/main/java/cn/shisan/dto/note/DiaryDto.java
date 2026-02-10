@@ -1,4 +1,4 @@
-package com.shisan.note.dto.note;
+package cn.shisan.dto.note;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

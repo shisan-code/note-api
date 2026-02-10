@@ -1,16 +1,16 @@
-package com.shisan.note.service.note;
+package cn.shisan.service.note;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shisan.note.domain.common.enums.DelEnum;
-import com.shisan.note.convert.NoteConvert;
-import com.shisan.note.dto.note.NoteDto;
-import com.shisan.note.domain.entity.note.Note;
-import com.shisan.note.domain.entity.note.Notebook;
-import com.shisan.note.mapper.note.NoteMapper;
-import com.shisan.note.utils.AssertUtils;
-import com.shisan.note.utils.AuthUtil;
-import com.shisan.note.utils.RequestContextUtils;
+import cn.shisan.domain.common.enums.DelEnum;
+import cn.shisan.convert.NoteConvert;
+import cn.shisan.dto.note.NoteDto;
+import cn.shisan.domain.entity.note.Note;
+import cn.shisan.domain.entity.note.Notebook;
+import cn.shisan.mapper.note.NoteMapper;
+import cn.shisan.utils.AssertUtils;
+import cn.shisan.utils.AuthUtil;
+import cn.shisan.utils.RequestContextUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

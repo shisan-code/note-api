@@ -1,10 +1,10 @@
-package com.shisan.note.mapper.sys;
+package cn.shisan.mapper.sys;
 
 import cn.shisan.common.domain.common.PageQuery;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.shisan.note.dto.sys.UserDto;
-import com.shisan.note.dto.query.UserQueryDto;
-import com.shisan.note.domain.entity.sys.User;
+import cn.shisan.dto.sys.UserDto;
+import cn.shisan.dto.query.UserQueryDto;
+import cn.shisan.domain.entity.sys.User;
 
 import java.util.List;
 

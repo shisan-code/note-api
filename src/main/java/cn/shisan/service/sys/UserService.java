@@ -1,13 +1,13 @@
-package com.shisan.note.service.sys;
+package cn.shisan.service.sys;
 
 import cn.shisan.common.domain.common.PageQuery;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.shisan.note.dto.sys.UserDto;
-import com.shisan.note.dto.sys.UserRoleDto;
-import com.shisan.note.dto.sys.UserStatusDto;
-import com.shisan.note.dto.query.UserQueryDto;
-import com.shisan.note.domain.entity.sys.User;
+import cn.shisan.dto.sys.UserDto;
+import cn.shisan.dto.sys.UserRoleDto;
+import cn.shisan.dto.sys.UserStatusDto;
+import cn.shisan.dto.query.UserQueryDto;
+import cn.shisan.domain.entity.sys.User;
 
 public interface UserService extends IService<User> {
 

@@ -1,4 +1,4 @@
-package com.shisan.note.config;
+package cn.shisan.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

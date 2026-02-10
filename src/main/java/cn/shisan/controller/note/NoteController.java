@@ -1,10 +1,10 @@
-package com.shisan.note.controller.note;
+package cn.shisan.controller.note;
 
 import cn.shisan.common.domain.common.JResult;
-import com.shisan.note.controller.BaseController;
-import com.shisan.note.dto.note.NoteDto;
-import com.shisan.note.domain.entity.note.Note;
-import com.shisan.note.service.note.NoteService;
+import cn.shisan.controller.BaseController;
+import cn.shisan.dto.note.NoteDto;
+import cn.shisan.domain.entity.note.Note;
+import cn.shisan.service.note.NoteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

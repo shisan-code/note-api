@@ -1,4 +1,4 @@
-package com.shisan.note.dto.auth;
+package cn.shisan.dto.auth;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

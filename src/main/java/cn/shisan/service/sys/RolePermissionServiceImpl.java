@@ -1,9 +1,9 @@
-package com.shisan.note.service.sys;
+package cn.shisan.service.sys;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shisan.note.domain.entity.sys.RolePermission;
-import com.shisan.note.mapper.sys.RolePermissionMapper;
+import cn.shisan.domain.entity.sys.RolePermission;
+import cn.shisan.mapper.sys.RolePermissionMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

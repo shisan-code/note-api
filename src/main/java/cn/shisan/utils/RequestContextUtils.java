@@ -1,4 +1,4 @@
-package com.shisan.note.utils;
+package cn.shisan.utils;
 
 import cn.shisan.common.exception.BusinessException;
 import com.alibaba.fastjson2.JSONObject;

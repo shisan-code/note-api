@@ -1,9 +1,9 @@
-package com.shisan.note.service.sys;
+package cn.shisan.service.sys;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shisan.note.domain.entity.sys.UserRole;
-import com.shisan.note.mapper.sys.UserRoleMapper;
+import cn.shisan.domain.entity.sys.UserRole;
+import cn.shisan.mapper.sys.UserRoleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

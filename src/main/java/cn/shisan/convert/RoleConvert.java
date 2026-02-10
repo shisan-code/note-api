@@ -1,7 +1,7 @@
-package com.shisan.note.convert;
+package cn.shisan.convert;
 
-import com.shisan.note.dto.sys.RoleDto;
-import com.shisan.note.domain.entity.sys.Role;
+import cn.shisan.dto.sys.RoleDto;
+import cn.shisan.domain.entity.sys.Role;
 
 import java.time.LocalDateTime;
 

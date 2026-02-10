@@ -1,4 +1,4 @@
-package com.shisan.note.service.sys;
+package cn.shisan.service.sys;
 
 import cn.shisan.common.domain.common.PageQuery;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -6,14 +6,14 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.shisan.note.convert.RoleConvert;
-import com.shisan.note.dto.sys.RoleDto;
-import com.shisan.note.dto.sys.RolePermissionDto;
-import com.shisan.note.dto.query.RoleQueryDto;
-import com.shisan.note.domain.entity.sys.Role;
-import com.shisan.note.domain.entity.sys.RolePermission;
-import com.shisan.note.mapper.sys.RoleMapper;
-import com.shisan.note.utils.AssertUtils;
+import cn.shisan.convert.RoleConvert;
+import cn.shisan.dto.sys.RoleDto;
+import cn.shisan.dto.sys.RolePermissionDto;
+import cn.shisan.dto.query.RoleQueryDto;
+import cn.shisan.domain.entity.sys.Role;
+import cn.shisan.domain.entity.sys.RolePermission;
+import cn.shisan.mapper.sys.RoleMapper;
+import cn.shisan.utils.AssertUtils;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

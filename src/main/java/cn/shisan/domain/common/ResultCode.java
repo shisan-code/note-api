@@ -1,4 +1,4 @@
-package com.shisan.note.domain.common;
+package cn.shisan.domain.common;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

@@ -1,14 +1,14 @@
-package com.shisan.note.service.note;
+package cn.shisan.service.note;
 
 import cn.shisan.common.domain.common.PageQuery;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageInfo;
-import com.shisan.note.dto.member.MemberCardStatusDto;
-import com.shisan.note.dto.member.MemberCardTransactionDto;
-import com.shisan.note.dto.member.MemberCardRegisterDto;
-import com.shisan.note.dto.member.MemberCardUpdateDto;
-import com.shisan.note.dto.query.MemberCardQueryDto;
-import com.shisan.note.domain.entity.member.MemberCard;
+import cn.shisan.dto.member.MemberCardStatusDto;
+import cn.shisan.dto.member.MemberCardTransactionDto;
+import cn.shisan.dto.member.MemberCardRegisterDto;
+import cn.shisan.dto.member.MemberCardUpdateDto;
+import cn.shisan.dto.query.MemberCardQueryDto;
+import cn.shisan.domain.entity.member.MemberCard;
 
 public interface MemberCardService extends IService<MemberCard> {
 

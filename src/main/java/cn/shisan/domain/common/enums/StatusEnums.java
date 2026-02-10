@@ -1,4 +1,4 @@
-package com.shisan.note.domain.common.enums;
+package cn.shisan.domain.common.enums;
 
 import cn.shisan.common.domain.enums.IEnum;
 

@@ -1,4 +1,4 @@
-package com.shisan.note.dto.member;
+package cn.shisan.dto.member;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

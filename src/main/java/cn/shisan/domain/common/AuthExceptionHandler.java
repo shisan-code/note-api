@@ -1,9 +1,9 @@
-package com.shisan.note.domain.common;
+package cn.shisan.domain.common;
 
 
 import cn.shisan.common.domain.common.JResult;
 import cn.shisan.common.exception.BusinessException;
-import com.shisan.note.controller.BaseController;
+import cn.shisan.controller.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;

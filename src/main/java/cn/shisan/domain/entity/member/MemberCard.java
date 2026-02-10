@@ -1,4 +1,4 @@
-package com.shisan.note.domain.entity.member;
+package cn.shisan.domain.entity.member;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

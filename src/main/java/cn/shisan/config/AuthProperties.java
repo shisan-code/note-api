@@ -1,4 +1,4 @@
-package com.shisan.note.config;
+package cn.shisan.config;
 
 
 import lombok.Data;

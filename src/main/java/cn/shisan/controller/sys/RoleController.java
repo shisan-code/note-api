@@ -1,16 +1,16 @@
-package com.shisan.note.controller.sys;
+package cn.shisan.controller.sys;
 
 import cn.shisan.common.domain.common.JResult;
 import cn.shisan.common.domain.common.PageQuery;
 import com.github.pagehelper.PageInfo;
-import com.shisan.note.controller.BaseController;
-import com.shisan.note.dto.sys.RoleDto;
-import com.shisan.note.dto.sys.RolePermissionDto;
-import com.shisan.note.dto.query.RoleQueryDto;
-import com.shisan.note.domain.entity.sys.Role;
-import com.shisan.note.domain.entity.sys.RolePermission;
-import com.shisan.note.service.sys.RolePermissionService;
-import com.shisan.note.service.sys.RoleService;
+import cn.shisan.controller.BaseController;
+import cn.shisan.dto.sys.RoleDto;
+import cn.shisan.dto.sys.RolePermissionDto;
+import cn.shisan.dto.query.RoleQueryDto;
+import cn.shisan.domain.entity.sys.Role;
+import cn.shisan.domain.entity.sys.RolePermission;
+import cn.shisan.service.sys.RolePermissionService;
+import cn.shisan.service.sys.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

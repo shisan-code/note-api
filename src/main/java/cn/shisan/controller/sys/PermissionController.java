@@ -1,13 +1,13 @@
-package com.shisan.note.controller.sys;
+package cn.shisan.controller.sys;
 
 import cn.shisan.common.domain.common.JResult;
 import cn.shisan.common.domain.common.PageQuery;
 import com.github.pagehelper.PageInfo;
-import com.shisan.note.controller.BaseController;
-import com.shisan.note.dto.sys.PermissionTree;
-import com.shisan.note.dto.query.PermissionQueryDto;
-import com.shisan.note.domain.entity.sys.Permission;
-import com.shisan.note.service.sys.PermissionService;
+import cn.shisan.controller.BaseController;
+import cn.shisan.dto.sys.PermissionTree;
+import cn.shisan.dto.query.PermissionQueryDto;
+import cn.shisan.domain.entity.sys.Permission;
+import cn.shisan.service.sys.PermissionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

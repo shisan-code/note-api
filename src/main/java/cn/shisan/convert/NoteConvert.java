@@ -1,7 +1,7 @@
-package com.shisan.note.convert;
+package cn.shisan.convert;
 
-import com.shisan.note.dto.note.NoteDto;
-import com.shisan.note.domain.entity.note.Note;
+import cn.shisan.dto.note.NoteDto;
+import cn.shisan.domain.entity.note.Note;
 
 public class NoteConvert {
 

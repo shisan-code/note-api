@@ -1,4 +1,4 @@
-package com.shisan.note.config;
+package cn.shisan.config;
 
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-@MapperScan(basePackages = "com.shisan.note.mapper")
+@MapperScan(basePackages = "cn.shisan.mapper")
 public class MybatisPlusConfig {
 
 

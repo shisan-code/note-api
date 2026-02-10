@@ -1,7 +1,7 @@
-package com.shisan.note.controller;
+package cn.shisan.controller;
 
 import cn.shisan.common.domain.common.JResult;
-import com.shisan.note.service.sys.FileUploadService;
+import cn.shisan.service.sys.FileUploadService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

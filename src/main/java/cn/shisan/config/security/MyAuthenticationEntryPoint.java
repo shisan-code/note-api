@@ -1,4 +1,4 @@
-package com.shisan.note.config.security;
+package cn.shisan.config.security;
 
 import cn.shisan.common.domain.common.JResult;
 import com.alibaba.fastjson2.JSONObject;

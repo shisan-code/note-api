@@ -1,4 +1,4 @@
-package com.shisan.note.config;
+package cn.shisan.config;
 
 
 import org.springframework.context.annotation.Bean;
@@ -25,7 +25,7 @@ public class Swagger2Config {
     Docket docket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.shisan.note.controller"))
+                .apis(RequestHandlerSelectors.basePackage("cn.shisan.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(securitySchemes())//令牌校验，配置全局token参数，使请求的接口自动添加token值。
