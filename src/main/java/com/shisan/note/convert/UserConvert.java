@@ -1,8 +1,8 @@
 package com.shisan.note.convert;
 
-import com.shisan.note.common.enums.StatusEnums;
+import com.shisan.note.domain.common.enums.StatusEnums;
 import com.shisan.note.dto.auth.UserRegister;
-import com.shisan.note.entity.admin.User;
+import com.shisan.note.domain.entity.sys.User;
 
 import java.time.LocalDateTime;
 

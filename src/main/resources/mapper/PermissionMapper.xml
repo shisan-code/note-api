@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE  mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shisan.note.mapper.admin.PermissionMapper">
+<mapper namespace="com.shisan.note.mapper.sys.PermissionMapper">
 
     <select id="findInRoleIds" resultType="com.shisan.note.entity.admin.Permission">
         select * from tbl_permission p

@@ -3,7 +3,7 @@ package com.shisan.note.controller.note;
 import cn.shisan.common.domain.common.JResult;
 import com.shisan.note.controller.BaseController;
 import com.shisan.note.dto.note.NotebookDto;
-import com.shisan.note.entity.note.Notebook;
+import com.shisan.note.domain.entity.note.Notebook;
 import com.shisan.note.service.note.NotebookService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

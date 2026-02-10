@@ -1,7 +1,7 @@
 package com.shisan.note.convert;
 
-import com.shisan.note.dto.admin.PermissionTree;
-import com.shisan.note.entity.admin.Permission;
+import com.shisan.note.dto.sys.PermissionTree;
+import com.shisan.note.domain.entity.sys.Permission;
 
 /**
  * @author lijing

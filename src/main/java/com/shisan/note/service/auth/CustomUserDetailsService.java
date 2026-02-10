@@ -1,12 +1,12 @@
 package com.shisan.note.service.auth;
 
-import com.shisan.note.common.enums.StatusEnums;
-import com.shisan.note.common.enums.UserEnums;
+import com.shisan.note.domain.common.enums.StatusEnums;
+import com.shisan.note.domain.common.enums.UserEnums;
 import com.shisan.note.dto.auth.LoginUser;
-import com.shisan.note.entity.admin.Permission;
-import com.shisan.note.entity.admin.User;
-import com.shisan.note.service.admin.PermissionService;
-import com.shisan.note.service.admin.UserService;
+import com.shisan.note.domain.entity.sys.Permission;
+import com.shisan.note.domain.entity.sys.User;
+import com.shisan.note.service.sys.PermissionService;
+import com.shisan.note.service.sys.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.DisabledException;

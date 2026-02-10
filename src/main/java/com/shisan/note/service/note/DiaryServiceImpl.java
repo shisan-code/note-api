@@ -2,9 +2,9 @@ package com.shisan.note.service.note;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shisan.note.common.enums.DelEnum;
+import com.shisan.note.domain.common.enums.DelEnum;
 import com.shisan.note.dto.note.DiaryDto;
-import com.shisan.note.entity.note.Diary;
+import com.shisan.note.domain.entity.note.Diary;
 import com.shisan.note.mapper.note.DiaryMapper;
 import com.shisan.note.utils.AssertUtils;
 import com.shisan.note.utils.AuthUtil;

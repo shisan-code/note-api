@@ -2,7 +2,7 @@ package com.shisan.note.service.note;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.shisan.note.dto.note.NoteDto;
-import com.shisan.note.entity.note.Note;
+import com.shisan.note.domain.entity.note.Note;
 
 import java.util.List;
 

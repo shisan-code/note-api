@@ -1,7 +1,7 @@
 package com.shisan.note.mapper.member;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.shisan.note.entity.member.MemberCard;
+import com.shisan.note.domain.entity.member.MemberCard;
 import org.apache.ibatis.annotations.Param;
 
 import java.math.BigDecimal;

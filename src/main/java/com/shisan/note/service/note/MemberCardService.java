@@ -8,7 +8,7 @@ import com.shisan.note.dto.member.MemberCardTransactionDto;
 import com.shisan.note.dto.member.MemberCardRegisterDto;
 import com.shisan.note.dto.member.MemberCardUpdateDto;
 import com.shisan.note.dto.query.MemberCardQueryDto;
-import com.shisan.note.entity.member.MemberCard;
+import com.shisan.note.domain.entity.member.MemberCard;
 
 public interface MemberCardService extends IService<MemberCard> {
 

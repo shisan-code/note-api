@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.shisan</groupId>
-	<artifactId>note-api</artifactId>
+	<artifactId>shisan-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>note-api</name>
-	<description>note-api</description>
+	<name>shisan-api</name>
+	<description>shisan-api</description>
 	<properties>
 		<java.version>8</java.version>
 		<mysql-connector.version>8.0.29</mysql-connector.version>

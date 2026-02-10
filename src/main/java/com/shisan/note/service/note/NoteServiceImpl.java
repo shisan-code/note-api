@@ -2,11 +2,11 @@ package com.shisan.note.service.note;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.shisan.note.common.enums.DelEnum;
+import com.shisan.note.domain.common.enums.DelEnum;
 import com.shisan.note.convert.NoteConvert;
 import com.shisan.note.dto.note.NoteDto;
-import com.shisan.note.entity.note.Note;
-import com.shisan.note.entity.note.Notebook;
+import com.shisan.note.domain.entity.note.Note;
+import com.shisan.note.domain.entity.note.Notebook;
 import com.shisan.note.mapper.note.NoteMapper;
 import com.shisan.note.utils.AssertUtils;
 import com.shisan.note.utils.AuthUtil;
