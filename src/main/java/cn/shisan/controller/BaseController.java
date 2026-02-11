@@ -1,10 +1,13 @@
 package cn.shisan.controller;
 
 import cn.shisan.common.domain.common.JResult;
-import com.alibaba.fastjson2.JSONObject;
+import cn.shisan.common.exception.BusinessException;
+import cn.shisan.utils.JwtTokenUtil;
+import cn.shisan.vo.AuthUserVo;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 
@@ -14,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
  * @author lijing
  */
 public class BaseController {
+    @Resource
+    private JwtTokenUtil jwtTokenUtil;
+
     protected <T> JResult<T> error(String msg) {
         return new JResult<>(2, msg);
     }
@@ -43,7 +49,11 @@ public class BaseController {
      * 获取登录用户Id
      */
     protected Long getUserId() {
-        String object = getRequest().getHeaders("user").nextElement();
-        return JSONObject.parseObject(object).getLong("userId");
+        String authorization = getRequest().getHeaders("Authorization").nextElement();
+        AuthUserVo authUserVo = jwtTokenUtil.extractUser(authorization);
+        if (authUserVo != null) {
+            return authUserVo.getId();
+        }
+        throw new BusinessException("未登录！");
     }
 }

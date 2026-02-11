@@ -41,9 +41,10 @@ public class AuthUserServiceImpl implements AuthUserService {
         LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
         // 加载用户信息
         User user = userService.findByUserName(login.getUserName());
-        // 生成Token
-        String jwtToken = jwtTokenUtil.generateToken(loginUser);
         AuthUserVo authUserVo = AuthConvert.convert(user);
+
+        // 生成Token
+        String jwtToken = jwtTokenUtil.generateToken(authUserVo);
         // 封装返回数据
         return LoginVo.builder()
                 .accessToken(jwtToken)

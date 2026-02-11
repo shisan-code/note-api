@@ -1,5 +1,7 @@
 package cn.shisan.utils;
 
+import cn.shisan.vo.AuthUserVo;
+import com.alibaba.fastjson2.JSON;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;
@@ -100,9 +102,10 @@ public class JwtTokenUtil {
      * @author lijing
      * @Date 2026/1/15 10:29
      */
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(AuthUserVo authUser) {
         Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername(), expiration);
+        claims.put("user", JSON.toJSONString(authUser));
+        return createToken(claims, authUser.getUserName(), expiration);
     }
 
     /**
@@ -142,4 +145,18 @@ public class JwtTokenUtil {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
+
+    /**
+     * 从Token中获取 用户信息
+     *
+     * @author lijing
+     * @Date 2026/1/15 10:29
+     */
+    public AuthUserVo extractUser(String token) {
+        final Claims claims = extractAllClaims(token);
+        String user = claims.get("user", String.class);
+        return JSON.parseObject(user, AuthUserVo.class);
+    }
+
+
 }
