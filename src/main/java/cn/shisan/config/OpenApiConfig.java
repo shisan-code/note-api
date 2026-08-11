@@ -20,7 +20,6 @@ public class OpenApiConfig {
         SecurityScheme scheme = new SecurityScheme()
                 .name(securitySchemeName)
                 .type(SecurityScheme.Type.HTTP)
-                .scheme("bearer")
                 .bearerFormat("JWT");
 
         return new OpenAPI()

@@ -5,16 +5,18 @@ import com.alibaba.fastjson2.JSON;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
 
+@Slf4j
 @Data
 @Component
 public class JwtTokenUtil {
@@ -23,127 +25,66 @@ public class JwtTokenUtil {
     @Value("${jwt.secret}")
     private String secret;
 
-    // Token 过期时间（单位：秒），建议1小时
+    // Token 过期时间（单位：毫秒）
     @Value("${jwt.expiration}")
     private Long expiration;
 
-    // 刷新 Token 过期时间（单位：秒），建议7天
+    // 刷新 Token 过期时间（单位：毫秒），建议7天
     @Value("${jwt.refresh-expiration}")
     private Long refreshExpiration;
 
     /**
-     * 生成签名密钥
+     * 获取加密密钥
      *
      * @author lijing
-     * @Date 2026/1/15 10:29
+     * @Date 2026/8/11 11:37
      */
-    private SecretKey getSigningKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes());
-    }
-
-    /**
-     * 从Token中获取用户名
-     *
-     * @author lijing
-     * @Date 2026/1/15 10:29
-     */
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
-
-    /**
-     * 从Token中获取过期时间
-     *
-     * @author lijing
-     * @Date 2026/1/15 10:29
-     */
-    public Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
-    /**
-     * 提取Token中的声明
-     *
-     * @author lijing
-     * @Date 2026/1/15 10:29
-     */
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
-    }
-
-    /**
-     * 提取所有声明
-     *
-     * @author lijing
-     * @Date 2026/1/15 10:30
-     */
-    private Claims extractAllClaims(String token) {
-        return Jwts.parser()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-    }
-
-    /**
-     * 验证Token是否过期
-     *
-     * @author lijing
-     * @Date 2026/1/15 10:29
-     */
-    private Boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
+    private SecretKey getSecretKey() {
+        byte[] keyBytes = secret.getBytes(StandardCharsets.UTF_8);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     /**
      * 生成访问Token
      *
      * @author lijing
-     * @Date 2026/1/15 10:29
+     * @Date 2026/1/15 10:28
      */
     public String generateToken(AuthUserVo authUser) {
+        // 全部基于UTC时间运算
+        Instant nowUtc = Instant.now();
+        Instant expireUtc = nowUtc.plusMillis(expiration);
+
         Map<String, Object> claims = new HashMap<>();
         claims.put("user", JSON.toJSONString(authUser));
-        return createToken(claims, authUser.getUserName(), expiration);
-    }
-
-    /**
-     * 生成刷新Token
-     *
-     * @author lijing
-     * @Date 2026/1/15 10:28
-     */
-    public String generateRefreshToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return createToken(claims, userDetails.getUsername(), refreshExpiration);
-    }
-
-    /**
-     * 创建Token
-     *
-     * @author lijing
-     * @Date 2026/1/15 10:28
-     */
-    private String createToken(Map<String, Object> claims, String subject, Long expireTime) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(subject)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expireTime * 1000))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .claims(claims)
+                .subject(authUser.getUserName())
+                .issuedAt(Date.from(nowUtc))
+                .expiration(Date.from(expireUtc))
+                .signWith(getSecretKey())
                 .compact();
     }
 
     /**
-     * 验证Token有效性
-     *
-     * @author lijing
-     * @Date 2026/1/15 10:28
+     * 校验token合法性
      */
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser()
+                    .verifyWith(getSecretKey())
+                    .build()
+                    .parseSignedClaims(token);
+            return true;
+        } catch (ExpiredJwtException e) {
+            log.info("令牌过期：{}", e.getMessage());
+        } catch (io.jsonwebtoken.security.SignatureException e) {
+            log.info("签名错误、密钥不一致、token篡改：{}", e.getMessage());
+            // 签名错误、密钥不一致、token篡改
+        } catch (MalformedJwtException | UnsupportedJwtException | IllegalArgumentException e) {
+            log.info("格式错误、空token：{}", e.getMessage());
+        }
+        return false;
     }
 
     /**
@@ -152,8 +93,13 @@ public class JwtTokenUtil {
      * @author lijing
      * @Date 2026/1/15 10:29
      */
-    public AuthUserVo extractUser(String token) {
-        final Claims claims = extractAllClaims(token);
+    public AuthUserVo getUserByToken(String token) {
+        final Claims claims = Jwts.parser()
+                .verifyWith(getSecretKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+
         String user = claims.get("user", String.class);
         return JSON.parseObject(user, AuthUserVo.class);
     }

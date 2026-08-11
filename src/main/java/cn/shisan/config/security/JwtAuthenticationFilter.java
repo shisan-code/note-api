@@ -1,7 +1,6 @@
 package cn.shisan.config.security;
 
 import cn.shisan.service.auth.CustomUserDetailsService;
-import com.alibaba.fastjson2.JSONObject;
 import cn.shisan.utils.JwtTokenUtil;
 
 import jakarta.servlet.FilterChain;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 @Component
 @Slf4j
@@ -33,32 +31,27 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //从请求头中获取token
-        String jwtToken = request.getHeader("Authorization");
+        String authorization = request.getHeader("Authorization");
         CustomHttpServletRequest servletRequest = new CustomHttpServletRequest(request);
         String userName = null;
-        if (StringUtils.isNotBlank(jwtToken)) {
-            try {
-                userName = jwtTokenUtil.extractUsername(jwtToken);
-            } catch (Exception e) {
-                log.error("token解析异常: {}", e.getMessage());
+        if (StringUtils.isNotBlank(authorization)) {
+            // 验证token是否有效
+            if (jwtTokenUtil.validateToken(authorization)) {
+                userName = jwtTokenUtil.getUserByToken(authorization).getUserName();
             }
         }
 
-        // 验证token
-        if (StringUtils.isNotBlank(userName)) {
+        // 用户名存在 && 当前Security上下文未认证，执行登录授权
+        if (StringUtils.isNotBlank(userName) && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(userName);
-            if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                        userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                // 将认证信息存入SecurityContext
-                SecurityContextHolder.getContext().setAuthentication(authToken);
 
-                // 设置用户信息
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("userName", userName);
-                servletRequest.addHeader("user", JSONObject.toJSONString(map));
-            }
+            // 封装认证对象，密码置空，权限携带
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            // 绑定请求详情
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            // 将认证信息存入SecurityContext
+            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 
         //继续过滤

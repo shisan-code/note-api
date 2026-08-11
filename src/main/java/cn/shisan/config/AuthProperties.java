@@ -22,9 +22,9 @@ public class AuthProperties {
     private List<String> auths;
 
     /**
-     * 不需要登录
+     * 不需要登录的白名单（登录前）
      */
-    private List<String> ignores;
+    private List<String> whitelist;
 
 
 }

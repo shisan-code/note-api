@@ -3,7 +3,6 @@ package cn.shisan.config.security;
 import cn.shisan.config.AuthProperties;
 import cn.shisan.dto.auth.LoginUser;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -32,36 +31,34 @@ public class MyAuthorizationManager implements AuthorizationManager<RequestAutho
         HttpServletRequest request = requestAuthorizationContext.getRequest();
 
         // 白名单
-        List<String> ignores = authProperties.getIgnores();
+        List<String> whitelist = authProperties.getWhitelist();
         // 检查请求是否匹配忽略路径（白名单）
-        if (ignores.stream().anyMatch(url -> antPathMatcher.match(url, request.getRequestURI()))) {
+        if (whitelist.stream().anyMatch(url -> antPathMatcher.match(url, request.getRequestURI()))) {
             return new AuthorizationDecision(true);
         }
+        // 3. 获取当前登录用户信息
+        Authentication auth = authentication.get();
+        // 未登录
+        if (auth == null || !auth.isAuthenticated()) {
+            return new AuthorizationDecision(false);
+        }
 
-        // 获取用户认证信息
-        Object principal = authentication.get().getPrincipal();
-        log.info("Authorities：{}", authentication.get().getAuthorities());
-        //判断数据是否为空 以及类型是否正确
-        if (principal instanceof LoginUser loginUser) {
-            // 超管放行
-            if (loginUser.isAdmin()) {
-                return new AuthorizationDecision(true);
-            }
-            // 用户白名单
-            List<String> urls = authProperties.getAuths();
-            // 检查请求用户白名单
-            if (urls.stream().anyMatch(url -> antPathMatcher.match(url, request.getRequestURI()))) {
-                return new AuthorizationDecision(true);
-            }
+        // 安全判断：必须是LoginUser类型再强转
+        Object principal = auth.getPrincipal();
+        if (!(principal instanceof LoginUser loginUser)) {
+            return new AuthorizationDecision(false);
         }
-        Collection<? extends GrantedAuthority> authorities = authentication.get().getAuthorities();
-        boolean hasPermission = false;
-        for (GrantedAuthority authority : authorities) {
-            if (antPathMatcher.match(authority.getAuthority(), request.getRequestURI())) {
-                hasPermission = true;
-                break;
-            }
-        }
+
+        // 拿到用户所有API权限路径
+        List<String> userPermPaths = loginUser.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).toList();
+
+        log.info("Authorities：{}", auth.getAuthorities());
+
+        // 4. 循环匹配：用户权限任意一个命中当前请求URI，则允许访问
+        boolean hasPermission = userPermPaths.stream()
+                .anyMatch(permPath -> antPathMatcher.match(permPath, request.getRequestURI()));
+
         return new AuthorizationDecision(hasPermission);
     }
 

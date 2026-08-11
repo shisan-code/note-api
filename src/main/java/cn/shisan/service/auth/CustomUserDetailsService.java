@@ -1,6 +1,5 @@
 package cn.shisan.service.auth;
 
-import cn.shisan.domain.common.enums.StatusEnums;
 import cn.shisan.domain.common.enums.UserEnums;
 import cn.shisan.dto.auth.LoginUser;
 import cn.shisan.domain.entity.sys.Permission;
@@ -8,17 +7,13 @@ import cn.shisan.domain.entity.sys.User;
 import cn.shisan.service.sys.PermissionService;
 import cn.shisan.service.sys.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AccountExpiredException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,31 +29,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (null == user) {
             throw new UsernameNotFoundException("用户不存在!");
         }
-        LoginUser loginUser = new LoginUser();
-        loginUser.setUserId(user.getId());
-        loginUser.setUserName(user.getUserName());
-        loginUser.setPassword(user.getPassword());
-        ArrayList<String> roles = new ArrayList<>();
-        boolean admin = permissionService.isAdmin(user.getId());
-        if (!admin) {
-            List<Permission> permissions = permissionService.findByUserId(user.getId(), UserEnums.PermissionType.API.getCode());
-            for (Permission permission : permissions) {
-                roles.add(permission.getUrl());
-            }
-        }
-        loginUser.setAdmin(admin);
-        loginUser.setPermissions(roles);
-        // 是否启用
-        loginUser.setEnabled(!Objects.equals(user.getStatus(), StatusEnums.DISABLE.getCode()));
 
-        if (!loginUser.isEnabled()) {
-            throw new DisabledException("该账户已被禁用!");
-        } else if (!loginUser.isAccountNonLocked()) {
-            throw new LockedException("该账号已被锁定!");
-        } else if (!loginUser.isAccountNonExpired()) {
-            throw new AccountExpiredException("该账号已过期!");
-        }
-        return loginUser;
+        List<Permission> permissions = permissionService.findByUserId(user.getId(), UserEnums.PermissionType.API.getCode());
+        List<String> collect = permissions.stream().map(Permission::getUrl).collect(Collectors.toList());
+        return new LoginUser(user, collect);
     }
 }
 

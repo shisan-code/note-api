@@ -12,12 +12,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://123.56.77.11:3306/note?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://127.0.0.1:3306/note?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: shisan@
-#    url: jdbc:mysql://127.0.0.1:6066/shisan_note?useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
-#    username: root
-#    password: liyishisan
+    password: root
 
 # mybatis plus
 mybatis-plus:
@@ -26,5 +23,5 @@ mybatis-plus:
 # JWT配置
 jwt:
   secret: ukc8BDbRigUDaY6pZFfWus2jZWLPHOOISOKSkmslmgdsSFSDSDGGSdsdglsdkgslkdngasdsdasgsjyttyj # 生产环境请更换为安全的密钥
-  expiration: 3600 # AccessToken过期时间（秒）
-  refresh-expiration: 604800 # RefreshToken过期时间（秒）
+  expiration: 3600000 # AccessToken过期时间（毫秒）
+  refresh-expiration: 604800000 # RefreshToken过期时间（毫秒）

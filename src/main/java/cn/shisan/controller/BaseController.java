@@ -52,7 +52,7 @@ public class BaseController {
      */
     protected Long getUserId() {
         String authorization = getRequest().getHeaders("Authorization").nextElement();
-        AuthUserVo authUserVo = jwtTokenUtil.extractUser(authorization);
+        AuthUserVo authUserVo = jwtTokenUtil.getUserByToken(authorization);
         if (authUserVo != null) {
             return authUserVo.getId();
         }

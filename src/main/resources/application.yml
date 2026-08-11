@@ -17,16 +17,21 @@ spring:
     name: note-api
   profiles:
     active: dev
+
   servlet:
     multipart:
       enabled: true
       max-file-size: 10MB
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
 
 secure:
   auths:
-  ignores: /note/api/auth/login
+  whitelist:
+    - /v3/api-docs/**
+    - /swagger-ui/**
+    - /webjars/**
+    - /doc.html/**
+    - /api/auth/login
+    - /api/auth/register
+    - /error
 
 

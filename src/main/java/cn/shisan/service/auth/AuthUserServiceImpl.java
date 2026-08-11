@@ -35,13 +35,16 @@ public class AuthUserServiceImpl implements AuthUserService {
 
     @Override
     public LoginVo login(LoginDto login) {
-        // 身份认证
-        Authentication authenticate = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(login.getUserName(), login.getPassword()));
-        LoginUser loginUser = (LoginUser) authenticate.getPrincipal();
-        // 加载用户信息
-        User user = userService.findByUserName(login.getUserName());
-        AuthUserVo authUserVo = AuthConvert.convert(user);
+        // 封装账号密码认证令牌
+        UsernamePasswordAuthenticationToken authToken =
+                new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
+
+        // 调用Security底层校验账号密码（自动调用UserDetailsService查询用户+密码比对）
+        Authentication authentication = authenticationManager.authenticate(authToken);
+        // 强转自定义LoginUser
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        // 转换为AuthUserVo
+        AuthUserVo authUserVo = AuthConvert.convert(loginUser.getUser());
 
         // 生成Token
         String jwtToken = jwtTokenUtil.generateToken(authUserVo);

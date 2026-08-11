@@ -4,7 +4,6 @@ import cn.shisan.service.auth.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -42,17 +41,9 @@ public class SecurityConfig {
                 // 4. 关闭默认退出登录页面
                 .logout(AbstractHttpConfigurer::disable)
                 // 5. 无状态会话（JWT必须配置）
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // 6. 权限放行规则
                 .authorizeHttpRequests(authorize -> authorize
-                        // ====== Swagger / Knife4j 文档全部放行 ======
-                        .requestMatchers("/v3/api-docs").permitAll()
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/webjars/**", "/doc.html", "/doc.html/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
-                        .requestMatchers("/error").permitAll()
                         .anyRequest().access(authorizationManager)
                 )
                 // 7. 异常统一配置：未认证入口 + 权限拒绝处理器

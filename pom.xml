@@ -112,6 +112,13 @@
             <version>${jjwt.version}</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- jackson JSON序列化（必须要有，解决ServiceLoader找不到Serializer） -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
 
         <!-- 字符串、日期、数组、数字常用工具类 -->
         <dependency>
