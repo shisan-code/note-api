@@ -1,7 +1,7 @@
 package cn.shisan.config.security;
 
 import cn.shisan.service.auth.CustomUserDetailsService;
-import cn.shisan.utils.JwtTokenUtil;
+import cn.shisan.common.utils.JwtTokenUtil;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -8,7 +8,7 @@ import cn.shisan.dto.auth.LoginUser;
 import cn.shisan.domain.entity.sys.User;
 import cn.shisan.service.sys.UserService;
 import cn.shisan.utils.AssertUtils;
-import cn.shisan.utils.JwtTokenUtil;
+import cn.shisan.common.utils.JwtTokenUtil;
 import cn.shisan.vo.AuthUserVo;
 import cn.shisan.vo.LoginVo;
 import lombok.RequiredArgsConstructor;

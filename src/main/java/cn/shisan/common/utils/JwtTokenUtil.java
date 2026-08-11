@@ -1,4 +1,4 @@
-package cn.shisan.utils;
+package cn.shisan.common.utils;
 
 import cn.shisan.vo.AuthUserVo;
 import com.alibaba.fastjson2.JSON;

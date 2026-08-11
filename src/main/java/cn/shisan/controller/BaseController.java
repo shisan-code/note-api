@@ -3,7 +3,7 @@ package cn.shisan.controller;
 import cn.shisan.common.BusinessException;
 import cn.shisan.common.JResult;
 
-import cn.shisan.utils.JwtTokenUtil;
+import cn.shisan.common.utils.JwtTokenUtil;
 import cn.shisan.vo.AuthUserVo;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
