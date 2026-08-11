@@ -1,14 +1,16 @@
 package cn.shisan.config.security;
 
-import cn.shisan.common.domain.common.JResult;
+import cn.shisan.common.JResult;
 import com.alibaba.fastjson2.JSONObject;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -18,17 +20,17 @@ import java.io.PrintWriter;
  *
  * @author shisan
  */
- public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
+@Component
+public class MyAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-     @Override
-     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
-         response.setStatus(HttpServletResponse.SC_OK);
-         response.setCharacterEncoding("utf-8");
-         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-         PrintWriter printWriter = response.getWriter();
-         printWriter.print(JSONObject.toJSONString(JResult.failed(HttpStatus.UNAUTHORIZED.value(),"未登录!")));
-         printWriter.flush();
-         printWriter.close();
-     }
-
+    @Override
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setCharacterEncoding("utf-8");
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        PrintWriter printWriter = response.getWriter();
+        printWriter.print(JSONObject.toJSONString(JResult.failed(HttpStatus.UNAUTHORIZED.value(), "未登录!")));
+        printWriter.flush();
+        printWriter.close();
+    }
 }

@@ -1,9 +1,9 @@
 package cn.shisan.service.sys;
 
-import cn.shisan.common.domain.common.PageQuery;
-import cn.shisan.common.domain.enums.IEnum;
+import cn.shisan.common.PageQuery;
+import cn.shisan.common.enums.IEnum;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import cn.shisan.domain.common.enums.StatusEnums;

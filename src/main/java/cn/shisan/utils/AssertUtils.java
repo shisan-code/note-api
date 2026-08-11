@@ -1,6 +1,6 @@
 package cn.shisan.utils;
 
-import cn.shisan.common.exception.BusinessException;
+import cn.shisan.common.BusinessException;
 import org.apache.commons.lang3.StringUtils;
 
 /**

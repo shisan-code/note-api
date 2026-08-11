@@ -1,3 +1,17 @@
+springdoc:
+  # 原始文档地址
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    # 调试页展开模式
+    doc-expansion: none
+# Knife4j 启用时配置
+knife4j:
+  enable: true
+  production: false # 生产环境改为true关闭文档
+
 spring:
   application:
     name: note-api

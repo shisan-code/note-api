@@ -1,6 +1,6 @@
 package cn.shisan.domain.common.enums;
 
-import cn.shisan.common.domain.enums.IEnum;
+import cn.shisan.common.enums.IEnum;
 
 public enum DelEnum implements IEnum<Integer> {
     DEL(1, "已删除"),

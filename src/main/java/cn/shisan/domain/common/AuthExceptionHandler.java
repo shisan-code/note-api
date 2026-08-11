@@ -1,8 +1,7 @@
 package cn.shisan.domain.common;
 
-
-import cn.shisan.common.domain.common.JResult;
-import cn.shisan.common.exception.BusinessException;
+import cn.shisan.common.BusinessException;
+import cn.shisan.common.JResult;
 import cn.shisan.controller.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;

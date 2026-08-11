@@ -1,17 +1,17 @@
 package cn.shisan.dto.query;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 public class PermissionQueryDto {
 
-    @ApiModelProperty("权限名称")
+    @Schema(title = "权限名称")
     private String name;
 
-    @ApiModelProperty("类型 1菜单 2api")
+    @Schema(title = "类型 1菜单 2api")
     private Integer type;
 
-    @ApiModelProperty("状态 1启用 2停用")
+    @Schema(title = "状态 1启用 2停用")
     private Integer status;
 }

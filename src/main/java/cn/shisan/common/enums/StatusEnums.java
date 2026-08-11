@@ -1,13 +1,11 @@
-package cn.shisan.domain.common.enums;
-
-import cn.shisan.common.enums.IEnum;
+package cn.shisan.common.enums;
 
 public enum StatusEnums implements IEnum<Integer> {
     ENABLE(1, "启用"),
     DISABLE(2, "停用");
 
-    private final Integer code;
-    private final String text;
+    private Integer code;
+    private String text;
 
     StatusEnums(Integer code, String text) {
         this.code = code;

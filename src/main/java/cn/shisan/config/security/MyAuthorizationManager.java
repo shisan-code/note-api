@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.AuthorizationManager;
@@ -16,16 +18,13 @@ import org.springframework.security.web.access.intercept.RequestAuthorizationCon
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+@RequiredArgsConstructor
 @Slf4j
 @Component
 public class MyAuthorizationManager implements AuthorizationManager<RequestAuthorizationContext> {
 
     private final AntPathMatcher antPathMatcher = new AntPathMatcher();
-    @Resource
-    private AuthProperties authProperties;
+    private final AuthProperties authProperties;
 
 
     @Override
@@ -43,8 +42,7 @@ public class MyAuthorizationManager implements AuthorizationManager<RequestAutho
         Object principal = authentication.get().getPrincipal();
         log.info("Authorities：{}", authentication.get().getAuthorities());
         //判断数据是否为空 以及类型是否正确
-        if (principal instanceof LoginUser) {
-            LoginUser loginUser = (LoginUser) principal;
+        if (principal instanceof LoginUser loginUser) {
             // 超管放行
             if (loginUser.isAdmin()) {
                 return new AuthorizationDecision(true);

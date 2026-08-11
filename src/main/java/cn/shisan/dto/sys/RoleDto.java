@@ -1,6 +1,6 @@
 package cn.shisan.dto.sys;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -9,16 +9,16 @@ import lombok.Data;
 @Data
 public class RoleDto {
 
-    @ApiModelProperty("角色ID")
+    @Schema(title = "角色ID")
     private Long id;
 
-    @ApiModelProperty("角色名称")
+    @Schema(title = "角色名称")
     private String name;
 
-    @ApiModelProperty("角色类型：0-管理员，1-普通角色")
+    @Schema(title = "角色类型：0-管理员，1-普通角色")
     private Integer type;
 
-    @ApiModelProperty("角色描述")
+    @Schema(title = "角色描述")
     private String remark;
 
 }

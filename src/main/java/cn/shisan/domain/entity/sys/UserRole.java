@@ -3,7 +3,7 @@ package cn.shisan.domain.entity.sys;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,22 +16,22 @@ import java.time.LocalDateTime;
 public class UserRole {
 
 	@TableId(value = "id", type = IdType.AUTO)
-	@ApiModelProperty("ID")
+	@Schema(title = "ID")
 	private Long id;
 	
-	@ApiModelProperty("用户ID")
+	@Schema(title = "用户ID")
 	private Long userId;
 	
-	@ApiModelProperty("角色ID")
+	@Schema(title = "角色ID")
 	private Long roleId;
 	
-	@ApiModelProperty("创建时间")
+	@Schema(title = "创建时间")
 	private LocalDateTime created;
 	
-	@ApiModelProperty("修改时间")
+	@Schema(title = "修改时间")
 	private LocalDateTime modified;
 	
-	@ApiModelProperty("是否删除 0否 1是")
+	@Schema(title = "是否删除 0否 1是")
 	private Integer deleted;
 	
 }

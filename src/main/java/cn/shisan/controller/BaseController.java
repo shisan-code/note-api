@@ -1,14 +1,16 @@
 package cn.shisan.controller;
 
-import cn.shisan.common.domain.common.JResult;
-import cn.shisan.common.exception.BusinessException;
+import cn.shisan.common.BusinessException;
+import cn.shisan.common.JResult;
+
 import cn.shisan.utils.JwtTokenUtil;
 import cn.shisan.vo.AuthUserVo;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+
 
 
 /**

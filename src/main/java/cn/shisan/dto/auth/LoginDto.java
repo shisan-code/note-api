@@ -1,15 +1,15 @@
 package cn.shisan.dto.auth;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 public class LoginDto {
 
-    @ApiModelProperty("用户名称")
+    @Schema(title = "用户名称")
     private String userName;
 
-    @ApiModelProperty("密码")
+    @Schema(title = "密码")
     private String password;
 
 }

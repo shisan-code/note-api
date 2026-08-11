@@ -4,67 +4,79 @@ import cn.shisan.service.auth.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final CustomUserDetailsService customUserDetailsService;
+    // 注入你自己的Bean
     private final JwtAuthenticationFilter jwtFilter;
     private final MyAuthorizationManager authorizationManager;
+    private final MyAccessDeniedHandler myAccessDeniedHandler;
+    private final MyAuthenticationEntryPoint myAuthenticationEntryPoint;
+    private final CustomUserDetailsService userLoginService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // 禁用basic明文验证
-                .httpBasic().disable()
-                // 前后端分离架构不需要csrf保护
-                .csrf().disable()
-                // 禁用默认登录页
-                .formLogin().disable()
-                // 禁用默认登出页
-                .logout().disable()
-                // 设置异常的EntryPoint，如果不设置，默认使用Http403ForbiddenEntryPoint
-                //.exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(invalidAuthenticationEntryPoint))
-                // 前后端分离是无状态的，不需要session了，直接禁用。
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        // 允许直接访问授权登录接口
-                        .antMatchers("/swagger-resources/**", "/webjars/**",
-                                "/v2/**", "/swagger-ui.html/**").permitAll()
-                        .antMatchers("/api/auth/**").permitAll()
+                // 1. 关闭HttpBasic明文认证
+                .httpBasic(AbstractHttpConfigurer::disable)
+                // 2. 关闭CSRF
+                .csrf(AbstractHttpConfigurer::disable)
+                // 3. 关闭表单登录页面
+                .formLogin(AbstractHttpConfigurer::disable)
+                // 4. 关闭默认退出登录页面
+                .logout(AbstractHttpConfigurer::disable)
+                // 5. 无状态会话（JWT必须配置）
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                // 6. 权限放行规则
+                .authorizeHttpRequests(authorize -> authorize
+                        // ====== Swagger / Knife4j 文档全部放行 ======
+                        .requestMatchers("/v3/api-docs").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/webjars/**", "/doc.html", "/doc.html/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
+                        .requestMatchers("/error").permitAll()
                         .anyRequest().access(authorizationManager)
                 )
-
-                .authenticationProvider(authenticationProvider())
-                // 加我们自定义的过滤器，替代UsernamePasswordAuthenticationFilter
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling()
-                .accessDeniedHandler(new MyAccessDeniedHandler())
-                .authenticationEntryPoint(new MyAuthenticationEntryPoint());
-
+                // 7. 异常统一配置：未认证入口 + 权限拒绝处理器
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(myAuthenticationEntryPoint)
+                        .accessDeniedHandler(myAccessDeniedHandler)
+                )
+                // 8. 自定义认证器
+                .authenticationProvider(authenticationProvider(userLoginService, passwordEncoder()))
+                // 9. JWT过滤器前置
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
+
     @Bean
-    public AuthenticationProvider authenticationProvider() {
-        final DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(customUserDetailsService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
-        authenticationProvider.setHideUserNotFoundExceptions(false);
-        return authenticationProvider;
+    public AuthenticationProvider authenticationProvider(CustomUserDetailsService userLoginService,
+                                                         PasswordEncoder passwordEncoder) {
+        // 传入UserDetailsService构造，废弃警告直接消失
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userLoginService);
+        // 后续属性依旧用set方法设置
+        provider.setPasswordEncoder(passwordEncoder);
+        provider.setHideUserNotFoundExceptions(false);
+        return provider;
     }
 
     /**
@@ -86,5 +98,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

@@ -1,6 +1,6 @@
 package cn.shisan.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,10 +12,10 @@ import lombok.Data;
 @Data
 public class LoginVo {
 
-    @ApiModelProperty("token")
+    @Schema(title = "token")
     private String accessToken;
-    @ApiModelProperty("过期时间")
+    @Schema(title = "过期时间")
     private Long expiration;
-    @ApiModelProperty("登录用户信息")
+    @Schema(title = "登录用户信息")
     private AuthUserVo authUser;
 }

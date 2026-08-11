@@ -1,6 +1,6 @@
 package cn.shisan.mapper.sys;
 
-import cn.shisan.common.domain.common.PageQuery;
+import cn.shisan.common.PageQuery;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import cn.shisan.dto.sys.UserDto;
 import cn.shisan.dto.query.UserQueryDto;

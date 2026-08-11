@@ -1,7 +1,7 @@
 package cn.shisan.service.sys;
 
-import cn.shisan.common.domain.common.PageQuery;
-import com.baomidou.mybatisplus.extension.service.IService;
+import cn.shisan.common.PageQuery;
+import com.baomidou.mybatisplus.spring.service.IService;
 import com.github.pagehelper.PageInfo;
 import cn.shisan.dto.sys.RoleDto;
 import cn.shisan.dto.sys.RolePermissionDto;
@@ -24,7 +24,6 @@ public interface RoleService extends IService<Role> {
      * 新增，插入所有字段
      *
      * @param roleDto 新增的记录
-     *
      */
     void insert(RoleDto roleDto);
 
@@ -32,7 +31,6 @@ public interface RoleService extends IService<Role> {
      * 修改，忽略null字段
      *
      * @param roleDto 修改的记录
-     *
      */
     void update(RoleDto roleDto);
 

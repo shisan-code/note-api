@@ -1,6 +1,6 @@
 package cn.shisan.dto.sys;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.List;
@@ -8,10 +8,10 @@ import java.util.List;
 @Data
 public class RolePermissionDto {
 
-    @ApiModelProperty("角色id")
+    @Schema(title = "角色id")
     private Long roleId;
 
-    @ApiModelProperty("权限id")
+    @Schema(title = "权限id")
     private List<Long> permissionIds;
 
 }

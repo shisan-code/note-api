@@ -1,7 +1,7 @@
 package cn.shisan.service.sys;
 
-import cn.shisan.common.domain.common.PageQuery;
-import com.baomidou.mybatisplus.extension.service.IService;
+import cn.shisan.common.PageQuery;
+import com.baomidou.mybatisplus.spring.service.IService;
 import com.github.pagehelper.PageInfo;
 import cn.shisan.dto.sys.PermissionTree;
 import cn.shisan.dto.query.PermissionQueryDto;

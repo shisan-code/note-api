@@ -79,7 +79,7 @@ public class JwtTokenUtil {
      * @Date 2026/1/15 10:30
      */
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
+        return Jwts.parser()
                 .setSigningKey(getSigningKey())
                 .build()
                 .parseClaimsJws(token)

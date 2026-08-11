@@ -1,6 +1,6 @@
 package cn.shisan.service.sys;
 
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.baomidou.mybatisplus.spring.service.IService;
 import cn.shisan.domain.entity.sys.RolePermission;
 import java.util.List;
 

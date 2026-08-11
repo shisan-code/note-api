@@ -1,7 +1,7 @@
 package cn.shisan.service.sys;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import cn.shisan.domain.entity.sys.RolePermission;
 import cn.shisan.mapper.sys.RolePermissionMapper;
 import lombok.RequiredArgsConstructor;

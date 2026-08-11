@@ -1,26 +1,26 @@
 package cn.shisan.dto.auth;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
 public class UserRegister {
 
-    @ApiModelProperty("用户名称")
+    @Schema(title = "用户名称")
     private String name;
 
-    @ApiModelProperty("用户名")
+    @Schema(title = "用户名")
     private String userName;
 
-    @ApiModelProperty("密码")
+    @Schema(title = "密码")
     private String password;
 
-    @ApiModelProperty("手机号码")
+    @Schema(title = "手机号码")
     private String phone;
 
-    @ApiModelProperty("手机号码")
+    @Schema(title = "手机号码")
     private String email;
 
-    @ApiModelProperty("个性签名")
+    @Schema(title = "个性签名")
     private String signature;
 }

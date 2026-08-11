@@ -1,9 +1,9 @@
 package cn.shisan.service.sys;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cn.shisan.domain.entity.sys.UserRole;
 import cn.shisan.mapper.sys.UserRoleMapper;
+import com.baomidou.mybatisplus.spring.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +24,5 @@ public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> i
                 .eq(UserRole::getDeleted, 0)
                 .eq(UserRole::getUserId, userId));
     }
+
 }
